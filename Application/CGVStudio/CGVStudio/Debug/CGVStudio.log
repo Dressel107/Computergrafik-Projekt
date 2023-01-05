@@ -1,0 +1,48 @@
+﻿  Aabb.cpp
+  Application.cpp
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Application.cpp(88,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Application.cpp(89,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  BaseModel.cpp
+  BaseShader.cpp
+  Camera.cpp
+  color.cpp
+  ConstantShader.cpp
+  IndexBuffer.cpp
+  LineBoxModel.cpp
+  LinePlaneModel.cpp
+  main.cpp
+  Matrix.cpp
+  Model.cpp
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Model.cpp(85,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Model.cpp(92,47): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Model.cpp(120,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Model.cpp(122,31): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Model.cpp(138,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Model.cpp(188,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Model.cpp(190,27): warning C4018: '<': signed/unsigned mismatch
+  PhongShader.cpp
+  rgbimage.cpp
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\rgbimage.cpp(53,16): warning C4244: 'return': conversion from 'float' to 'unsigned char', possible loss of data
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\rgbimage.cpp(116,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\rgbimage.cpp(147,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\rgbimage.cpp(149,27): warning C4018: '<': signed/unsigned mismatch
+  Terrain.cpp
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Terrain.cpp(70,140): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\Terrain.cpp(70,72): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  TerrainShader.cpp
+  Texture.cpp
+  TriangleBoxModel.cpp
+  TrianglePlaneModel.cpp
+  Generating Code...
+  Compiling...
+  TriangleSphereModel.cpp
+  vector.cpp
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\vector.cpp(82,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\vector.cpp(111,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\vector.cpp(113,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\vector.cpp(114,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\src\vector.cpp(115,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  VertexBuffer.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  CGVStudio.vcxproj -> C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
