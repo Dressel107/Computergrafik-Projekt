@@ -69,18 +69,18 @@ int main (int argc, char** argv)
     PrintOpenGLVersion();
 
     // ImGui inistialisieren
-    const char* glsl_version = "#version 130";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    //const char* glsl_version = "#version 130";
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void)io;
+    //IMGUI_CHECKVERSION();
+    //ImGui::CreateContext();
+    //ImGuiIO& io = ImGui::GetIO();
+    //(void)io;
 
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
+    //ImGui::StyleColorsDark();
+    //ImGui_ImplGlfw_InitForOpenGL(window, true);
+    //ImGui_ImplOpenGL3_Init(glsl_version);
     
     {
         double lastTime=0;

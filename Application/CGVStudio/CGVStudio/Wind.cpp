@@ -23,7 +23,7 @@ bool Wind::loadModel(const char* file)
 
 void Wind::update(float dtime)
 {
-    currentRotation = currentRotation + (-2 * M_PI / 1 * dtime);
+    currentRotation = currentRotation + (-2 * M_PI / 0.5 * dtime);
 
     Matrix TM;
     TM.translation(this->spawnPosition);

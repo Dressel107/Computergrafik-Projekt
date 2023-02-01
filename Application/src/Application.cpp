@@ -110,10 +110,9 @@ void Application::start()
 
 void Application::update(float dtime)
 {
-
-    ImGui::Begin("My Window");
-    ImGui::Text("This is some text");
-    ImGui::End();
+    //ImGui::Begin("My Window");
+    //ImGui::Text("This is some text");
+    //ImGui::End();
 
     // Wenn GameOver ist, warten bis der Benutzer die Leertaste drückt
     if (isGameOver)
