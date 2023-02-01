@@ -18,11 +18,25 @@
 #include "indexbuffer.h"
 #include "basemodel.h"
 #include "terrain.h"
+#include "../CGVStudio/CGVStudio/Glider.h"
+#include "../CGVStudio/CGVStudio/Capsule.h"
+#include "../CGVStudio/CGVStudio/IAnimatable.h"
+#include "../CGVStudio/CGVStudio/SpeedDisc.h"
+#include "../CGVStudio/CGVStudio/Sphere.h"
+#include "../CGVStudio/CGVStudio/Wind.h"
+#include "../CGVStudio/CGVStudio/WindTurbine.h"
+#include "../CGVStudio/CGVStudio/Decoration.h"
 
 class Application
 {
 public:
     typedef std::list<BaseModel*> ModelList;
+    typedef std::list<Sphere*> SphereList;
+    typedef std::list<Capsule*> CapsuleList;
+    typedef std::list<SpeedDisc*> SpeedDiscList;
+    typedef std::list<Wind*> WindList;
+    typedef std::list<WindTurbine*> WindTurbineList;
+    typedef std::list<Decoration*> DecorationList;
     Application(GLFWwindow* pWin);
     void start();
     void update(float dtime);
@@ -33,8 +47,28 @@ protected:
     Camera Cam;
     ModelList Models;
     GLFWwindow* pWindow;
+    Glider* glider;
     Terrain* pTerrain;
+    
+    SphereList Spheres;
+    CapsuleList Capsules;
+    SpeedDiscList SpeedDiscs;
+    WindList Winds;
+    WindTurbineList WindTurbines;
+    DecorationList Decorations;
 
+    void spawnDynamicObjects();
+    void handleCollectablesCollisions();
+    void handleUpwindsCollisions();
+    void handleTerrainCollision();
+    void updateObjects(float dtime);
+    void updateUITexts();
+    void gameOver();
+    void restartGame();
+    Vector getRandomSpawnPosition();
+    Vector getRandomSpawnPositionOnTerrain();
+    float getRandomValue(float min, float max);
+    void drawText(const char* text, float x, float y);
 };
 
 #endif /* Application_hpp */

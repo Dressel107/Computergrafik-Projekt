@@ -44,8 +44,11 @@ bool Model::load(const char* ModelFile, bool FitSize)
 {
     const aiScene* pScene = aiImportFile( ModelFile,aiProcessPreset_TargetRealtime_Fast | aiProcess_TransformUVCoords );
     
-    if(pScene==NULL || pScene->mNumMeshes<=0)
+    if (pScene == NULL || pScene->mNumMeshes <= 0)
+    {
+        std::cout << aiGetErrorString();
         return false;
+    }
     
     Filepath = ModelFile;
     Path = Filepath;

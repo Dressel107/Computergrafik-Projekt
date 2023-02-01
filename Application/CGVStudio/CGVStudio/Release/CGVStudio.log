@@ -1,0 +1,52 @@
+﻿  Aabb.cpp
+  Application.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(28,10): fatal  error C1083: Datei (Include) kann nicht geöffnet werden: "GL/freeglut.h": No such file or directory
+  BaseModel.cpp
+  BaseShader.cpp
+  Camera.cpp
+  color.cpp
+  ConstantShader.cpp
+  IndexBuffer.cpp
+  LineBoxModel.cpp
+  LinePlaneModel.cpp
+  main.cpp
+  Matrix.cpp
+  Model.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Model.cpp(85,35): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Model.cpp(92,47): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Model.cpp(120,27): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Model.cpp(122,31): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Model.cpp(138,23): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Model.cpp(188,23): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Model.cpp(190,27): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+  PhongShader.cpp
+  rgbimage.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\rgbimage.cpp(53,16): warning C4244: "return": Konvertierung von "float" in "unsigned char", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\rgbimage.cpp(116,27): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\rgbimage.cpp(147,23): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\rgbimage.cpp(149,27): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+  Terrain.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Terrain.cpp(70,140): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Terrain.cpp(70,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+  TerrainShader.cpp
+  Texture.cpp
+  TriangleBoxModel.cpp
+  TrianglePlaneModel.cpp
+  Kompilieren...
+  TriangleSphereModel.cpp
+  vector.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\vector.cpp(82,39): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\vector.cpp(111,12): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\vector.cpp(113,12): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\vector.cpp(114,12): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\vector.cpp(115,12): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+  VertexBuffer.cpp
+  Capsule.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Capsule.cpp(32,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+  Glider.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(58,29): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+  ICollectable.cpp
+  SpeedDisc.cpp
+  Sphere.cpp
+  Wind.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Wind.cpp(27,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust

@@ -17,13 +17,13 @@
     <Filter Include="Quelldateien\utils\yourclasses">
       <UniqueIdentifier>{c817caf9-5b5a-4c75-ba93-0eb97e38e4d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game">
+      <UniqueIdentifier>{ab88cb87-a805-494e-a1ad-1a696a33bd27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
       <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Camera.cpp">
-      <Filter>Quelldateien\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\IndexBuffer.cpp">
       <Filter>Quelldateien\utils</Filter>
@@ -87,6 +87,33 @@
     </ClCompile>
     <ClCompile Include="..\..\src\TerrainShader.cpp">
       <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Camera.cpp">
+      <Filter>Quelldateien\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Glider.cpp">
+      <Filter>Quelldateien\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Capsule.cpp">
+      <Filter>Quelldateien\game</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedDisc.cpp">
+      <Filter>Quelldateien\game</Filter>
+    </ClCompile>
+    <ClCompile Include="ICollectable.cpp">
+      <Filter>Quelldateien\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Quelldateien\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Wind.cpp">
+      <Filter>Quelldateien\game</Filter>
+    </ClCompile>
+    <ClCompile Include="WindTurbine.cpp">
+      <Filter>Quelldateien\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Decoration.cpp">
+      <Filter>Quelldateien\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +182,30 @@
     </ClInclude>
     <ClInclude Include="..\..\src\TerrainShader.h">
       <Filter>Quelldateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Glider.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Capsule.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedDisc.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollectable.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Wind.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="WindTurbine.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Decoration.h">
+      <Filter>Quelldateien\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

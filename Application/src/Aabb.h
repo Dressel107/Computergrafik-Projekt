@@ -21,6 +21,9 @@ public:
     AABB(const Vector& min, const Vector& max);
     AABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
     Vector size() const;
+    bool intersectWith(Vector v);
+    bool intersectWith(AABB aabb);
+    void translate(Vector position);
 };
 
 

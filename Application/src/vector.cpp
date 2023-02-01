@@ -9,7 +9,6 @@ Vector::Vector( float x, float y, float z)
 	this->X = x;
 	this->Y = y;
 	this->Z = z;
-
 }
 
 Vector::Vector()
@@ -25,8 +24,6 @@ Vector Vector::cross(const Vector& v) const
 {
 	return Vector((this->Y * v.Z - this->Z * v.Y), (this->Z * v.X - this->X * v.Z), (this->X * v.Y - this->Y * v.X)); // dummy (remove)
 }
-
-
 
 Vector Vector::operator+(const Vector& v) const
 {
@@ -58,8 +55,6 @@ Vector& Vector::operator+=(const Vector& v)
 
 	return *this; 
 }
-
-
 
 Vector& Vector::normalize()
 {

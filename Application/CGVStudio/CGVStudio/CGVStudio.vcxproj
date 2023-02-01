@@ -55,13 +55,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\thirdparty\glfw\include;$(ProjectDir)..\thirdparty\glew\include;$(ProjectDir)..\thirdparty\assimp\include;$(ProjectDir)..\thirdparty\freeimage\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\thirdparty\imgui\include;$(ProjectDir)..\thirdparty\freeglut\include;$(ProjectDir)..\thirdparty\glfw\include;$(ProjectDir)..\thirdparty\glew\include;$(ProjectDir)..\thirdparty\assimp\include;$(ProjectDir)..\thirdparty\freeimage\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\thirdparty\glfw\lib;$(ProjectDir)..\thirdparty\glew\lib;$(ProjectDir)..\thirdparty\assimp\lib;$(ProjectDir)..\thirdparty\freeimage\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;FreeImage.lib;assimp-vc140-mt.lib;glfw3.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\thirdparty\imgui\lib;$(ProjectDir)..\thirdparty\freeglut\lib;$(ProjectDir)..\thirdparty\glfw\lib;$(ProjectDir)..\thirdparty\glew\lib;$(ProjectDir)..\thirdparty\assimp\lib;$(ProjectDir)..\thirdparty\freeimage\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>imgui.lib;freeglut.lib;opengl32.lib;FreeImage.lib;assimp-vc140-mt.lib;glfw3.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -108,6 +108,14 @@
     <ClCompile Include="..\..\src\TriangleSphereModel.cpp" />
     <ClCompile Include="..\..\src\vector.cpp" />
     <ClCompile Include="..\..\src\VertexBuffer.cpp" />
+    <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="Decoration.cpp" />
+    <ClCompile Include="Glider.cpp" />
+    <ClCompile Include="ICollectable.cpp" />
+    <ClCompile Include="SpeedDisc.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Wind.cpp" />
+    <ClCompile Include="WindTurbine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Aabb.h" />
@@ -132,6 +140,14 @@
     <ClInclude Include="..\..\src\TriangleSphereModel.h" />
     <ClInclude Include="..\..\src\vector.h" />
     <ClInclude Include="..\..\src\VertexBuffer.h" />
+    <ClInclude Include="Capsule.h" />
+    <ClInclude Include="Decoration.h" />
+    <ClInclude Include="Glider.h" />
+    <ClInclude Include="ICollectable.h" />
+    <ClInclude Include="SpeedDisc.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Wind.h" />
+    <ClInclude Include="WindTurbine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
