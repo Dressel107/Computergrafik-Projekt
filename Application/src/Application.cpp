@@ -49,7 +49,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 50;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
-Vector playerSpawnPosition(10, 10, 10);
+Vector playerSpawnPosition(2, 11, 2);
 
 int points = 0;
 int height = 0;
@@ -93,7 +93,17 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     glider->loadModel(ASSET_DIRECTORY "untitled.dae");
     Models.push_back(glider);
 
-    // Dynamische Objekte spawnen
+    this->Cam.setPosition(Vector(10, 10, 10));
+    
+
+
+
+
+
+
+
+
+    //Dynamische Objekte spawnen
     spawnDynamicObjects();
 
     //drawText("Geschwindigkeit", 10, 10);
@@ -110,6 +120,14 @@ void Application::start()
 
 void Application::update(float dtime)
 {
+
+    //std::cout << glider->transform().m00 << glider->transform().m10 << glider->transform().m20 << glider->transform().m30 << std::endl;
+    //std::cout << glider->transform().m01 << glider->transform().m11 << glider->transform().m21 << glider->transform().m31 << std::endl;
+    //std::cout << glider->transform().m02 << glider->transform().m12 << glider->transform().m22 << glider->transform().m32 << std::endl;
+    //std::cout << glider->transform().m03 << glider->transform().m13 << glider->transform().m23 << glider->transform().m33 << std::endl << std::endl;
+
+
+
     //ImGui::Begin("My Window");
     //ImGui::Text("This is some text");
     //ImGui::End();
@@ -161,11 +179,13 @@ void Application::update(float dtime)
     }
 
     // Gleiter navigieren
-    //glider->navigateForTesting(forwardBackward, upDown, leftRight);
-    glider->navigate(upDown, leftRight);
+    glider->navigateForTesting(forwardBackward, upDown, leftRight);
+    //glider->navigate(upDown, leftRight);
 
     // Objekte aktualisieren
+    glider->update(dtime, Cam);
     updateObjects(dtime);
+
 
     // Kollisionen prüfen
     //handleCollectablesCollisions();
@@ -371,7 +391,6 @@ void Application::handleUpwindsCollisions()
 /// </summary>
 void Application::updateObjects(float dtime)
 {
-    glider->update(dtime);
 
     for each (Sphere* sphere in Spheres)
     {

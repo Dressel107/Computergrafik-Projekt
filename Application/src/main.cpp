@@ -81,18 +81,18 @@ int main (int argc, char** argv)
     //ImGui::StyleColorsDark();
     //ImGui_ImplGlfw_InitForOpenGL(window, true);
     //ImGui_ImplOpenGL3_Init(glsl_version);
+    float LastFrametime = 0;
+
     
     {
-        double lastTime=0;
         Application App(window);
         App.start();
         while (!glfwWindowShouldClose (window)) {
-            double now = glfwGetTime();
-            double delta = now - lastTime;
-            lastTime = now;
+            float DeltaTime = glfwGetTime() - LastFrametime;
+            LastFrametime = glfwGetTime();
             // once per frame
             glfwPollEvents();
-            App.update((float)delta);
+            App.update((float)DeltaTime);
             App.draw();
             glfwSwapBuffers (window);
         }
