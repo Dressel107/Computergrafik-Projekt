@@ -63,7 +63,7 @@ void Glider::update(float dtime, Camera& cam)
     this->Transform = moveForward * this->Transform;
 
     //Kamera positionieren
-    cam.setPosition(Vector(this->Transform.m03+3, this->transform().m13 + 7, this->transform().m23));
+   // cam.setPosition(Vector(this->Transform.m03+3, this->transform().m13 + 7, this->transform().m23));
     cam.setTarget(Vector(this->Transform.m03-4, this->transform().m13+0.1, this->transform().m23+0.1)); //+0.1 muss eigentlich noch weg
     
 
