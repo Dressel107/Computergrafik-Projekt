@@ -33,18 +33,6 @@ Vector& Terrain::getVertex(int x, int y)
     return this->tmpVertices[y * this->imgWidth + x];
 }
 
-Vector& Terrain::getVertex(int x, int y, const RGBImage* img)
-{
-    float grayValue = getGrayValue(img->getPixelColor(x, y));
-
-    float scaleX = Size.X / imgWidth;
-    float scaleY = Size.Z / imgHeight;
-
-
-     Vector pos = Vector(-width() / 2.0 + x * scaleX, grayValue, depth() / 2.0 - y * scaleY);
-    // std::cout << pos.X << pos.Y << pos.Z << std::endl;
-     return pos;
-}
 
 
 
@@ -76,11 +64,11 @@ bool Terrain::load( const char* HeightMap, const char* DetailMap1, const char* D
 
     //Temporäres 2D Verticesarray erzeugen, welches ermöglicht die Nachbarn eines Vertices zu bestimmen.
     //Size von tmpVertices ist imgWidth + 2 und imgHeight + 2 um bei der Nachbarsuche Nullpointer zu vermeiden.
-    this->tmpVertices = new Vector[(imgWidth + 2) * (imgHeight + 2)];
+    this->tmpVertices = new Vector[imgWidth * imgHeight];
 
     //Temporäres 2D Verticesarray befüllen
-    for (int x = 1; x < imgWidth; x++) {
-        for (int y = 1; y < imgHeight; y++)
+    for (int x = 0; x < imgWidth; x++) {
+        for (int y = 0; y < imgHeight; y++)
         {
             tmpVertices[(y) * imgWidth + (x )] = Vector(-width() / 2.0 + x * scaleX, getGrayValue(img->getPixelColor(x, y)), depth() / 2.0 - y * scaleY);
         }
@@ -90,38 +78,23 @@ bool Terrain::load( const char* HeightMap, const char* DetailMap1, const char* D
     for (int x = 0; x < imgWidth; x++) {
         for (int y = 0; y < imgHeight; y++)
         {
-
             //Im 2D Nachbar-Vertices finden, daraus Dreieck bilden und Normale des Dreiecks aufaddieren, siehe this->normal()
             Vector normal = Vector(0,0,0);
-
-            if (x != 0 && y != 0) {
-                if (x != imgWidth - 1 && y != imgHeight -  1) {
-                    /*normal += this->normal(getVertex(x, y, img), getVertex(x - 1, y, img), getVertex(x - 1, y - 1, img));
-                    normal += this->normal(getVertex(x, y, img), getVertex(x - 1, y - 1, img), getVertex(x, y - 1, img));
-                    normal += this->normal(getVertex(x, y, img), getVertex(x, y - 1, img), getVertex(x + 1, y, img));
-                    normal += this->normal(getVertex(x, y, img), getVertex(x + 1, y, img), getVertex(x + 1, y + 1, img));
-                    normal += this->normal(getVertex(x, y, img), getVertex(x + 1, y + 1, img), getVertex(x, y + 1, img));
-                    normal += this->normal(getVertex(x, y, img), getVertex(x, y + 1, img), getVertex(x - 1, y, img));*/
-                    normal += this->normal(getVertex(x, y), getVertex(x - 1, y), getVertex(x - 1, y - 1));
-                    normal += this->normal(getVertex(x, y), getVertex(x - 1, y - 1), getVertex(x, y - 1));
-                    normal += this->normal(getVertex(x, y), getVertex(x, y - 1), getVertex(x + 1, y));
-                    normal += this->normal(getVertex(x, y), getVertex(x + 1, y), getVertex(x + 1, y + 1));
-                    normal += this->normal(getVertex(x, y), getVertex(x + 1, y + 1), getVertex(x, y + 1));
-                    normal += this->normal(getVertex(x, y), getVertex(x, y + 1), getVertex(x - 1, y));
-                    //std::cout << "Here" << std::endl;
-
-                }
+            if (x != 0 && y != 0 && x != imgWidth - 1 && y != imgHeight - 1) {
+                 normal += this->normal(getVertex(x, y), getVertex(x - 1, y), getVertex(x - 1, y - 1));
+                 normal += this->normal(getVertex(x, y), getVertex(x - 1, y - 1), getVertex(x, y - 1));
+                 normal += this->normal(getVertex(x, y), getVertex(x, y - 1), getVertex(x + 1, y));
+                 normal += this->normal(getVertex(x, y), getVertex(x + 1, y), getVertex(x + 1, y + 1));
+                 normal += this->normal(getVertex(x, y), getVertex(x + 1, y + 1), getVertex(x, y + 1));
+                 normal += this->normal(getVertex(x, y), getVertex(x, y + 1), getVertex(x - 1, y));
             }
-
-            //std::cout << normal.X<< normal.Y << normal.Z << std::endl;
 
             VB.addNormal(normal.normalize());
 
-
-            //Vector pos = Vector(-width() / 2.0 + x * scaleX, grayScaleValue, depth() / 2.0 - y * scaleY);
             VB.addTexcoord0(x / (float)  (imgWidth - 1), y / (float) (imgHeight - 1));
 
-            Vector pos = getVertex(x, y, img);
+            float grayValue = getGrayValue(img->getPixelColor(x, y));
+            Vector pos = Vector(-width() / 2.0 + x * scaleX, grayValue, depth() / 2.0 - y * scaleY);
             VB.addVertex(pos);
         }
     }

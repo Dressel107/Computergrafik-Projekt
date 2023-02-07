@@ -72,7 +72,6 @@ void Glider::update(float dtime, Camera& cam)
     //Neigen Links/Rechts
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
     this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
-    std::cout << this->rotUpDown << this->rotLeftRight << std::endl;
 
     camMat.translation(spawnPosition + Vector(-10, 12, 0) );
     tmp =  camMat;
