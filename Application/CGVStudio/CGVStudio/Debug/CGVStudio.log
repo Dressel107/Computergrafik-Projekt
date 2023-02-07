@@ -1,6 +1,7 @@
 ﻿  Application.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\shared\minwindef.h(130,1): warning C4005: "APIENTRY": Makro-Neudefinition
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\thirdparty\glfw\include\glfw\glfw3.h(98,1): message : Siehe vorherige Definition von "APIENTRY"
+<<<<<<< Updated upstream
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(475,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(475,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
   Terrain.cpp
@@ -45,4 +46,11 @@ Camera.obj : warning LNK4099: PDB "" wurde nicht mit "Camera.obj" oder an "" gef
 BaseShader.obj : warning LNK4099: PDB "" wurde nicht mit "BaseShader.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
 BaseModel.obj : warning LNK4099: PDB "" wurde nicht mit "BaseModel.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
 Aabb.obj : warning LNK4099: PDB "" wurde nicht mit "Aabb.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
+=======
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(191,15): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(454,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(472,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(472,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(517,51): warning C4305: "Argument": Verkürzung von "double" in "float"
+>>>>>>> Stashed changes
   CGVStudio.vcxproj -> C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
