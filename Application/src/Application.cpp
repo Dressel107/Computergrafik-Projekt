@@ -88,12 +88,12 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
         
     // Spieler (Gleiter) laden
     pPhongShader = new PhongShader();
-    glider = new Glider(playerSpawnPosition);
+    glider = new Glider(playerSpawnPosition, &Cam);
     glider->shader(pPhongShader, true);
     glider->loadModel(ASSET_DIRECTORY "untitled.dae");
     Models.push_back(glider);
 
-    this->Cam.setPosition(Vector(10, 100, 10));
+    //this->Cam.setPosition(Vector(10, 100, 10));
     
 
     //Dynamische Objekte spawnen

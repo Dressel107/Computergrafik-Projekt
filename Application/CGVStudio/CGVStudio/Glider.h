@@ -5,7 +5,7 @@
 class Glider : public BaseModel
 {
 public:
-    Glider(Vector spawnPosition);
+    Glider(Vector spawnPosition, Camera* cam);
     virtual ~Glider();
     bool loadModel(const char* gliderFile);
     Vector update(float dtime);
@@ -21,6 +21,7 @@ protected:
     Model* glider;
     Vector spawnPosition;
     float currentPos = 0;
+    Camera* cam;
 
     float rotUpDown;
     float rotLeftRight;
@@ -28,4 +29,5 @@ protected:
     Vector movingVec;
     float flyPower;
 
+    Matrix camTransform;
 };

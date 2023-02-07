@@ -5,16 +5,9 @@ C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\App
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(450,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(468,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(468,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
-  Terrain.cpp
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Terrain.cpp(73,140): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Terrain.cpp(73,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Terrain.cpp(97,87): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Terrain.cpp(97,48): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
-  main.cpp
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\main.cpp(91,29): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\main.cpp(92,40): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-  Glider.cpp
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(27,26): warning C4305: "Argument": Verkürzung von "double" in "float"
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(80,73): warning C4305: "Argument": Verkürzung von "double" in "float"
-  Code wird generiert...
+vector.obj : warning LNK4099: PDB "" wurde nicht mit "vector.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
+Texture.obj : warning LNK4099: PDB "" wurde nicht mit "Texture.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
+rgbimage.obj : warning LNK4099: PDB "" wurde nicht mit "rgbimage.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
+Matrix.obj : warning LNK4099: PDB "" wurde nicht mit "Matrix.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
+Camera.obj : warning LNK4099: PDB "" wurde nicht mit "Camera.obj" oder an "" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
   CGVStudio.vcxproj -> C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
