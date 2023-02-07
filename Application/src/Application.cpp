@@ -177,7 +177,7 @@ void Application::update(float dtime)
     //handleCollectablesCollisions();
     //handleUpwindsCollisions();
     //handleTerrainCollision();
-
+    //Cam.setUp(Vector(0, 0, 1));
     Cam.update();
 
     // Prüfen, ob Zeit abgelaufen ist

@@ -27,12 +27,12 @@ bool Glider::loadModel(const char* gliderFile)
     //Gleiter an Starposition setzen
     Matrix TM, RM;
     RM.rotationY(M_PI / 2);
-    this->Transform = TM.translation(this->spawnPosition) * RM;
+    this->Transform = TM.translation(this->spawnPosition);
     glider->transform(this->Transform);
 
     //cam inital positionieren
     Matrix camTM;
-    this->camTransform = camTM.translation(this->spawnPosition + Vector(-10, 12, 0));
+    this->camTransform = camTM.translation(this->spawnPosition);
     this->cam->setPosition(camTM.translation());
     this->cam->setTarget(this->transform().translation() + Vector(0.1, 0.1, 0.1));
 
@@ -82,11 +82,23 @@ void Glider::update(float dtime, Camera& cam)
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
     this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
 
-    //camMat.translation(spawnPosition + Vector(-10, 12, 0) );
-    //tmp =  camMat;
 
-    //cam.setPosition(tmp.translation());
-    //cam.setTarget(this->transform().translation() + Vector(0.1, 0.1, 0.1));
+
+    Matrix camTM;
+    camTM.translation(Vector(0, 10, -10));
+
+   
+
+    Matrix tmpCamTransform = this->Transform * camTM;
+
+    this->camTransform = tmpCamTransform * rotUpDownMat * rotLeftRightMat;
+
+    cam.setPosition(this->camTransform.translation());
+
+    Vector camUp = rotLeftRightMat.transformVec3x3(this->cam->up());
+    this->cam->setUp(camUp);
+
+    //cam.setTarget();
 
     glider->transform(this->Transform);
 }
