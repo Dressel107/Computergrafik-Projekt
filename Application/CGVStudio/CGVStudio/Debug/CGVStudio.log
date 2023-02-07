@@ -5,9 +5,17 @@ C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\App
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(464,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(482,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(482,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+  Terrain.cpp
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Terrain.cpp(70,140): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Terrain.cpp(70,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+  main.cpp
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\main.cpp(91,29): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\main.cpp(92,40): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
   Glider.cpp
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(24,27): warning C4305: "Argument": Verkürzung von "double" in "float"
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(67,97): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(67,70): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
   Code wird generiert...
+  LINK : C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe wurde nicht gefunden oder beim letzten inkrementellen Linkvorgang nicht erstellt; vollständiger Link wird durchgeführt.
+LINK : warning LNK4098: Standardbibliothek "MSVCRT" steht in Konflikt mit anderen Bibliotheken; /NODEFAULTLIB:Bibliothek verwenden.
   CGVStudio.vcxproj -> C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
