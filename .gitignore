@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+Application/CGVStudio/.vs/CGVStudio/v17/.suo
