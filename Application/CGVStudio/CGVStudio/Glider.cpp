@@ -7,7 +7,7 @@
 Glider::Glider(Vector spawnPosition, Camera* cam)
 {
     this->spawnPosition = spawnPosition;
-    this->flyPower = 0;
+    this->flyPower = 3;
     this->rotLeftRight = 0;
     this->rotUpDown = 0;
     this->camTransform.identity();
@@ -98,7 +98,7 @@ void Glider::update(float dtime, Camera& cam)
     Vector camUp = rotLeftRightMat.transformVec3x3(this->cam->up());
     this->cam->setUp(camUp);
 
-    //cam.setTarget();
+    cam.setTarget(this->Transform.translation()+ Vector(0,0,1));
 
     glider->transform(this->Transform);
 }
