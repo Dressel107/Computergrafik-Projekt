@@ -8,6 +8,8 @@ Glider::Glider(Vector spawnPosition)
 {
     this->spawnPosition = spawnPosition;
     this->flyPower = 5;
+    this->rotLeftRight = 0;
+    this->rotUpDown = 0;
 }
 Glider::~Glider()
 {
@@ -70,13 +72,12 @@ void Glider::update(float dtime, Camera& cam)
     //Neigen Links/Rechts
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
     this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
+    std::cout << this->rotUpDown << this->rotLeftRight << std::endl;
 
-    camMat.translation(spawnPosition + Vector(-10, 12, 0) + this->Transform.translation());
-    tmp = rotUpDownMat * rotLeftRightMat * camMat;
+    camMat.translation(spawnPosition + Vector(-10, 12, 0) );
+    tmp =  camMat;
 
     cam.setPosition(tmp.translation());
-
-
     cam.setTarget(this->transform().translation() + Vector(0.1, 0.1, 0.1));
 
     glider->transform(this->Transform);
@@ -93,15 +94,12 @@ Vector Glider::update(float dtime)
     //Neigen Oben/Unten
     rotUpDownMat.rotationX(this->rotUpDown * dtime);
 
-<<<<<<< Updated upstream
     //Kamera positionieren
-   // cam.setPosition(Vector(this->Transform.m03+3, this->transform().m13 + 7, this->transform().m23));
-    cam.setTarget(Vector(this->Transform.m03-4, this->transform().m13+0.1, this->transform().m23+0.1)); //+0.1 muss eigentlich noch weg
+    //cam.setPosition(Vector(this->Transform.m03+3, this->transform().m13 + 7, this->transform().m23));
+    //cam.setTarget(Vector(this->Transform.m03-4, this->transform().m13+0.1, this->transform().m23+0.1)); //+0.1 muss eigentlich noch weg
     
-=======
     //Neigen Links/Rechts
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
->>>>>>> Stashed changes
 
     this->Transform = moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
 

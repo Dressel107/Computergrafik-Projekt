@@ -96,13 +96,6 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     this->Cam.setPosition(Vector(10, 100, 10));
     
 
-
-
-
-
-
-
-
     //Dynamische Objekte spawnen
     //spawnDynamicObjects();
 
@@ -172,8 +165,8 @@ void Application::update(float dtime)
     }
 
     // Gleiter navigieren
-    glider->navigateForTesting(forwardBackward, upDown, leftRight);
-    //glider->navigate(upDown, leftRight);
+    //glider->navigateForTesting(forwardBackward, upDown, leftRight);
+    glider->navigate(upDown, leftRight);
 
     // Objekte aktualisieren
     glider->update(dtime, Cam);
