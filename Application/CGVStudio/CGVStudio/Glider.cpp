@@ -7,7 +7,7 @@
 Glider::Glider(Vector spawnPosition, Camera* cam)
 {
     this->spawnPosition = spawnPosition;
-    this->flyPower = 0;
+    this->flyPower = 3;
     this->rotLeftRight = 0;
     this->rotUpDown = 0;
     this->camTransform.identity();
@@ -84,14 +84,18 @@ void Glider::update(float dtime, Camera& cam)
 
 
     //Kamera einstellen
-    Matrix camTM, target, targetTM;
+    Matrix camTM, target, targetTM, upTM;
 
     //Position
     camTM.translation(Vector(0, 10, -10));
     cam.setPosition((this->Transform * camTM).translation());
 
+    upTM.translation(Vector(0, 10, -10));
     //Up -> Kammera um eigen Achse Rotieren
-    Vector camUp = rotLeftRightMat.transformVec3x3(this->cam->up());
+    //Vector camUp = rotUpDownMat.transformVec3x3(this->cam->up());
+    Vector gliederUp = this->Transform.up().normalize();
+    Vector camUp = upTM.transformVec3x3(gliederUp);
+
     this->cam->setUp(camUp);
 
     //target
