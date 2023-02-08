@@ -51,6 +51,9 @@ const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
 Vector playerSpawnPosition(2, 11, 2);
 
+Vector cameraPositionRelativToModel(0, 10, -10);
+Vector cameraTargetRelativToModel(0, 0, 5);
+
 int points = 0;
 int height = 0;
 bool isGameOver = false;
@@ -88,12 +91,14 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
         
     // Spieler (Gleiter) laden
     pPhongShader = new PhongShader();
-    glider = new Glider(playerSpawnPosition, &Cam);
+    glider = new Glider(playerSpawnPosition);
     glider->shader(pPhongShader, true);
     glider->loadModel(ASSET_DIRECTORY "untitled.dae");
     Models.push_back(glider);
 
-    //this->Cam.setPosition(Vector(10, 100, 10));
+    //Kameraeinstellungen
+    this->camTM.translation(cameraPositionRelativToModel);
+    this->targetTM.translation(cameraTargetRelativToModel);
     
 
     //Dynamische Objekte spawnen
@@ -504,22 +509,13 @@ void Application::end()
 
 void Application::lockCamToModel(Camera& cam, BaseModel* model)
 {
-    //ToDo: Kameraeinstellungen in andere Klasse verlagern
-    //Kamera einstellen
-    Matrix camTM, target, targetTM, upTM;
-
     //Position
-    camTM.translation(Vector(0, 10, -10));
-    cam.setPosition((model->transform() * camTM).translation());
+    cam.setPosition((model->transform() * this->camTM).translation());
 
     //Up
-    upTM.translation(Vector(0, 10, -10));
     Vector gliederUp = model->transform().up().normalize();
-    Vector camUp = upTM.transformVec3x3(gliederUp);
-    cam.setUp(camUp);
+    cam.setUp(this->camTM.transformVec3x3(gliederUp));
 
     //target
-    targetTM.translation(0, 0, 5);
-    target = model->transform() * targetTM;
-    cam.setTarget(target.translation());
+    cam.setTarget((model->transform() * this->targetTM).translation());
 }

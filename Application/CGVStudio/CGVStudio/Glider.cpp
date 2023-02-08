@@ -4,14 +4,12 @@
 
 
 
-Glider::Glider(Vector spawnPosition, Camera* cam)
+Glider::Glider(Vector spawnPosition)
 {
     this->spawnPosition = spawnPosition;
     this->flyPower = 3;
     this->rotLeftRight = 0;
     this->rotUpDown = 0;
-    this->camTransform.identity();
-    this->cam = cam;
 }
 Glider::~Glider()
 {
@@ -23,20 +21,10 @@ bool Glider::loadModel(const char* gliderFile)
     glider = new Model(gliderFile, false);
     glider->shader(shader());
 
-
     //Gleiter an Starposition setzen
-    Matrix TM, RM;
-    RM.rotationY(M_PI / 2);
+    Matrix TM;
     this->Transform = TM.translation(this->spawnPosition);
     glider->transform(this->Transform);
-
-    //cam inital positionieren
-    Matrix camTM;
-    this->camTransform = camTM.translation(this->spawnPosition);
-    this->cam->setPosition(camTM.translation());
-    this->cam->setTarget(this->transform().translation() + Vector(0.1, 0.1, 0.1));
-
-
     return true;
 }
 
@@ -69,7 +57,7 @@ void Glider::navigate(float UpDown, float LeftRight)
 
 Vector Glider::update(float dtime)
 {
-    Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat, camMat, tmp;
+    Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
 
     //Kontinuierlich Geradeaus
     this->movingVec = Transform.forward() * flyPower;
@@ -80,8 +68,8 @@ Vector Glider::update(float dtime)
 
     //Neigen Links/Rechts
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
-    this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
 
+    this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
     glider->transform(this->Transform);
     return this->Transform.translation();
 }

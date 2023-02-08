@@ -56,6 +56,8 @@ protected:
     WindList Winds;
     WindTurbineList WindTurbines;
     DecorationList Decorations;
+    Matrix camTM;
+    Matrix targetTM;
 
     void spawnDynamicObjects();
     void handleCollectablesCollisions();
