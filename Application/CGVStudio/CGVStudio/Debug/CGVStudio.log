@@ -1,4 +1,15 @@
-﻿  Glider.cpp
+﻿  Application.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\shared\minwindef.h(130,1): warning C4005: "APIENTRY": Makro-Neudefinition
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\thirdparty\glfw\include\glfw\glfw3.h(98,1): message : Siehe vorherige Definition von "APIENTRY"
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(189,15): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(451,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(469,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\Application.cpp(469,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+  main.cpp
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\main.cpp(91,29): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\src\main.cpp(92,40): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+  Glider.cpp
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(29,26): warning C4305: "Argument": Verkürzung von "double" in "float"
 C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(37,80): warning C4305: "Argument": Verkürzung von "double" in "float"
+  Code wird generiert...
   CGVStudio.vcxproj -> C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe

@@ -67,7 +67,7 @@ void Glider::navigate(float UpDown, float LeftRight)
     this->rotLeftRight = LeftRight;
 }
 
-void Glider::update(float dtime, Camera& cam)
+Vector Glider::update(float dtime)
 {
     Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat, camMat, tmp;
 
@@ -82,52 +82,11 @@ void Glider::update(float dtime, Camera& cam)
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
     this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
 
-
-    //Kamera einstellen
-    Matrix camTM, target, targetTM, upTM;
-
-    //Position
-    camTM.translation(Vector(0, 10, -10));
-    cam.setPosition((this->Transform * camTM).translation());
-
-    upTM.translation(Vector(0, 10, -10));
-    //Up -> Kammera um eigen Achse Rotieren
-    //Vector camUp = rotUpDownMat.transformVec3x3(this->cam->up());
-    Vector gliederUp = this->Transform.up().normalize();
-    Vector camUp = upTM.transformVec3x3(gliederUp);
-
-    this->cam->setUp(camUp);
-
-    //target
-    targetTM.translation(0, 0, 30);
-    target = this->Transform * targetTM;
-    cam.setTarget(target.translation());
-    glider->transform(this->Transform);
-}
-
-Vector Glider::update(float dtime)
-{
-    Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat, camMat, tmp;
-
-    //Kontinuierlich Geradeaus
-    this->movingVec = Transform.forward() * flyPower;
-    moveForwardMat.translation(movingVec * dtime);
-
-    //Neigen Oben/Unten
-    rotUpDownMat.rotationX(this->rotUpDown * dtime);
-
-    //Kamera positionieren
-    //cam.setPosition(Vector(this->Transform.m03+3, this->transform().m13 + 7, this->transform().m23));
-    //cam.setTarget(Vector(this->Transform.m03-4, this->transform().m13+0.1, this->transform().m23+0.1)); //+0.1 muss eigentlich noch weg
-    
-    //Neigen Links/Rechts
-    rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
-
-    this->Transform = moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
-
     glider->transform(this->Transform);
     return this->Transform.translation();
 }
+
+
 
 void Glider::navigateForTesting(float forwardBackward, float UpDown, float LeftRight)
 {

@@ -169,7 +169,8 @@ void Application::update(float dtime)
     glider->navigate(upDown, leftRight);
 
     // Objekte aktualisieren
-    glider->update(dtime, Cam);
+    glider->update(dtime);
+    lockCamToModel(Cam, glider);
     //updateObjects(dtime);
 
 
@@ -499,4 +500,26 @@ void Application::end()
         delete *it;
     
     Models.clear();
+}
+
+void Application::lockCamToModel(Camera& cam, BaseModel* model)
+{
+    //ToDo: Kameraeinstellungen in andere Klasse verlagern
+    //Kamera einstellen
+    Matrix camTM, target, targetTM, upTM;
+
+    //Position
+    camTM.translation(Vector(0, 10, -10));
+    cam.setPosition((model->transform() * camTM).translation());
+
+    //Up
+    upTM.translation(Vector(0, 10, -10));
+    Vector gliederUp = model->transform().up().normalize();
+    Vector camUp = upTM.transformVec3x3(gliederUp);
+    cam.setUp(camUp);
+
+    //target
+    targetTM.translation(0, 0, 5);
+    target = model->transform() * targetTM;
+    cam.setTarget(target.translation());
 }

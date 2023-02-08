@@ -9,7 +9,6 @@ public:
     virtual ~Glider();
     bool loadModel(const char* gliderFile);
     Vector update(float dtime);
-    void update(float dtime, Camera& cam);
 
     virtual void draw(const BaseCamera& Cam);
     const AABB& boundingBox() const { return glider->boundingBox(); }
