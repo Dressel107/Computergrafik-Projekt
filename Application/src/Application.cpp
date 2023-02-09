@@ -198,6 +198,7 @@ void Application::update(float dtime)
     // Objekte aktualisieren
     glider->update(dtime);
     lockCamToModel(Cam, glider);
+
     //updateObjects(dtime);
 
 
