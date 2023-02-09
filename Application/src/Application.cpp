@@ -51,8 +51,10 @@ const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
 Vector playerSpawnPosition(2, 11, 2);
 
+//Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
 Vector cameraTargetRelativToModel(0, 0, 5);
+
 
 int points = 0;
 int height = 0;
@@ -167,6 +169,26 @@ void Application::update(float dtime)
     if (glfwGetKey(pWindow, GLFW_KEY_RIGHT) == GLFW_PRESS) 
     {
         leftRight = 1.0f;
+    }
+
+    //Sicht ändern
+    
+    if (glfwGetKey(pWindow, GLFW_KEY_1) == GLFW_PRESS)//normale Sicht
+    {
+        this->camTM.translation(cameraPositionRelativToModel);
+        this->targetTM.translation(cameraTargetRelativToModel);
+    }
+
+    if (glfwGetKey(pWindow, GLFW_KEY_2) == GLFW_PRESS)//Rückwärts sicht
+    {
+        this->camTM.translation(Vector(0,10,10));
+        this->targetTM.translation(Vector(0,0,-5));
+    }
+
+    if (glfwGetKey(pWindow, GLFW_KEY_3) == GLFW_PRESS)// Cockpitsicht
+    {
+        this->camTM.translation(Vector(0, 1, 3));
+        this->targetTM.translation(Vector(0, 1, 3));
     }
 
     // Gleiter navigieren

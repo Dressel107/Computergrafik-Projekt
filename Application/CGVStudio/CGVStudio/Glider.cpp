@@ -8,6 +8,7 @@ Glider::Glider(Vector spawnPosition)
 {
     this->spawnPosition = spawnPosition;
     this->flyPower = 3;
+    this->rotationPower = 1;
     this->rotLeftRight = 0;
     this->rotUpDown = 0;
 }
@@ -60,11 +61,11 @@ Vector Glider::update(float dtime)
     Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
 
     //Kontinuierlich Geradeaus
-    this->movingVec = Transform.forward() * flyPower;
-    moveForwardMat.translation(movingVec * dtime);
+    Vector gliderMovement = Transform.forward() * flyPower  * dtime ;
+    moveForwardMat.translation(gliderMovement);
 
     //Neigen Oben/Unten
-    rotUpDownMat.rotationX(this->rotUpDown * dtime);
+    rotUpDownMat.rotationX(this->rotUpDown * rotationPower * dtime);
 
     //Neigen Links/Rechts
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);

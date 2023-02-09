@@ -26,5 +26,5 @@ protected:
 
     Vector movingVec;
     float flyPower;
-
+    float rotationPower;
 };
