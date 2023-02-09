@@ -12,7 +12,6 @@ class Terrain : public BaseModel
 private:
     float getGrayValue(const Color& pixelColor);
     Vector& getVertex(int x, int y);
-    Vector& getVertex(int x, int y, const RGBImage* img);
 
 public:
 

@@ -2,9 +2,15 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+
+
 Glider::Glider(Vector spawnPosition)
 {
     this->spawnPosition = spawnPosition;
+    this->flyPower = 3;
+    this->rotationPower = 1;
+    this->rotLeftRight = 0;
+    this->rotUpDown = 0;
 }
 Glider::~Glider()
 {
@@ -16,17 +22,10 @@ bool Glider::loadModel(const char* gliderFile)
     glider = new Model(gliderFile, false);
     glider->shader(shader());
 
-
-
     //Gleiter an Starposition setzen
-    Matrix TM, RM;
-
-    RM.rotationY(M_PI / -2);
-    
-    this->Transform = TM.translation(this->spawnPosition) * RM;
-
+    Matrix TM;
+    this->Transform = TM.translation(this->spawnPosition);
     glider->transform(this->Transform);
-
     return true;
 }
 
@@ -53,30 +52,34 @@ void Glider::upwind()
 /// <param name="LeftRight">1.0f: Right, -1.0f: Left, 0.0f: Geradeaus</param>
 void Glider::navigate(float UpDown, float LeftRight)
 {
+    this->rotUpDown = UpDown;
+    this->rotLeftRight = LeftRight;
 }
 
-void Glider::update(float dtime, Camera& cam)
+Vector Glider::update(float dtime)
 {
-    Matrix moveForward;
+    Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
 
-    moveForward.translation(movingVector * dtime);
-    this->Transform = moveForward * this->Transform;
+    //Kontinuierlich Geradeaus
+    Vector gliderMovement = Transform.forward() * flyPower  * dtime ;
+    moveForwardMat.translation(gliderMovement);
 
-    //Kamera positionieren
-   // cam.setPosition(Vector(this->Transform.m03+3, this->transform().m13 + 7, this->transform().m23));
-    cam.setTarget(Vector(this->Transform.m03-4, this->transform().m13+0.1, this->transform().m23+0.1)); //+0.1 muss eigentlich noch weg
-    
+    //Neigen Oben/Unten
+    rotUpDownMat.rotationX(this->rotUpDown * rotationPower * dtime);
 
-    //currentPos = currentPos + (-2 * M_PI / 6 * dtime);
+    //Neigen Links/Rechts
+    rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
 
-    //Matrix RM;
-    //RM.rotationY(currentPos);
+    this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
     glider->transform(this->Transform);
+    return this->Transform.translation();
 }
+
+
 
 void Glider::navigateForTesting(float forwardBackward, float UpDown, float LeftRight)
 {
-    this->movingVector = Transform.right() * forwardBackward;
+    //this->movingVector = Transform.right() * forwardBackward;
 
 }
 

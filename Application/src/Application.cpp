@@ -51,6 +51,11 @@ const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
 Vector playerSpawnPosition(2, 11, 2);
 
+//Normale sicht
+Vector cameraPositionRelativToModel(0, 10, -10);
+Vector cameraTargetRelativToModel(0, 0, 5);
+
+
 int points = 0;
 int height = 0;
 bool isGameOver = false;
@@ -93,15 +98,10 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     glider->loadModel(ASSET_DIRECTORY "untitled.dae");
     Models.push_back(glider);
 
-    this->Cam.setPosition(Vector(10, 100, 10));
+    //Kameraeinstellungen
+    this->camTM.translation(cameraPositionRelativToModel);
+    this->targetTM.translation(cameraTargetRelativToModel);
     
-
-
-
-
-
-
-
 
     //Dynamische Objekte spawnen
     //spawnDynamicObjects();
@@ -171,20 +171,41 @@ void Application::update(float dtime)
         leftRight = 1.0f;
     }
 
+    //Sicht ändern
+    
+    if (glfwGetKey(pWindow, GLFW_KEY_1) == GLFW_PRESS)//normale Sicht
+    {
+        this->camTM.translation(cameraPositionRelativToModel);
+        this->targetTM.translation(cameraTargetRelativToModel);
+    }
+
+    if (glfwGetKey(pWindow, GLFW_KEY_2) == GLFW_PRESS)//Rückwärts sicht
+    {
+        this->camTM.translation(Vector(0,10,10));
+        this->targetTM.translation(Vector(0,0,-5));
+    }
+
+    if (glfwGetKey(pWindow, GLFW_KEY_3) == GLFW_PRESS)// Cockpitsicht
+    {
+        this->camTM.translation(Vector(0, 1, 3));
+        this->targetTM.translation(Vector(0, 1, 3));
+    }
+
     // Gleiter navigieren
-    glider->navigateForTesting(forwardBackward, upDown, leftRight);
-    //glider->navigate(upDown, leftRight);
+    //glider->navigateForTesting(forwardBackward, upDown, leftRight);
+    glider->navigate(upDown, leftRight);
 
     // Objekte aktualisieren
-    glider->update(dtime, Cam);
-    updateObjects(dtime);
+    glider->update(dtime);
+    lockCamToModel(Cam, glider);
+    //updateObjects(dtime);
 
 
     // Kollisionen prüfen
     //handleCollectablesCollisions();
     //handleUpwindsCollisions();
     //handleTerrainCollision();
-
+    //Cam.setUp(Vector(0, 0, 1));
     Cam.update();
 
     // Prüfen, ob Zeit abgelaufen ist
@@ -192,135 +213,135 @@ void Application::update(float dtime)
 
 void Application::spawnDynamicObjects()
 {
-    //srand(time(NULL));
-    //PhongShader* pPhongShader;
+    srand(time(NULL));
+    PhongShader* pPhongShader;
 
-    //for (int i = 0; i < WOODS_COUNT; i++)
-    //{
-    //    Vector spawnPosition = getRandomSpawnPositionOnTerrain();
+    for (int i = 0; i < WOODS_COUNT; i++)
+    {
+        Vector spawnPosition = getRandomSpawnPositionOnTerrain();
 
-    //    pPhongShader = new PhongShader();
-    //    Decoration* wood = new Decoration(spawnPosition);
-    //    wood->shader(pPhongShader, true);
-    //    wood->loadModel(ASSET_DIRECTORY "wood.dae");
-    //    Models.push_back(wood);
-    //    Decorations.push_back(wood);
-    //}
+        pPhongShader = new PhongShader();
+        Decoration* wood = new Decoration(spawnPosition);
+        wood->shader(pPhongShader, true);
+        wood->loadModel(ASSET_DIRECTORY "wood.dae");
+        Models.push_back(wood);
+        Decorations.push_back(wood);
+    }
 
-    //for (int i = 0; i < BUSHES_COUNT; i++)
-    //{
-    //    Vector spawnPosition = getRandomSpawnPositionOnTerrain();
+    for (int i = 0; i < BUSHES_COUNT; i++)
+    {
+        Vector spawnPosition = getRandomSpawnPositionOnTerrain();
 
-    //    pPhongShader = new PhongShader();
-    //    Decoration* bush = new Decoration(spawnPosition);
-    //    bush->shader(pPhongShader, true);
-    //    bush->loadModel(ASSET_DIRECTORY "bush.dae");
-    //    Models.push_back(bush);
-    //    Decorations.push_back(bush);
-    //}
+        pPhongShader = new PhongShader();
+        Decoration* bush = new Decoration(spawnPosition);
+        bush->shader(pPhongShader, true);
+        bush->loadModel(ASSET_DIRECTORY "bush.dae");
+        Models.push_back(bush);
+        Decorations.push_back(bush);
+    }
 
-    //for (int i = 0; i < WIND_TURBINES_COUNT; i++)
-    //{
-    //    Vector spawnPosition = getRandomSpawnPositionOnTerrain();
+    for (int i = 0; i < WIND_TURBINES_COUNT; i++)
+    {
+        Vector spawnPosition = getRandomSpawnPositionOnTerrain();
 
-    //    pPhongShader = new PhongShader();
-    //    WindTurbine* turbine = new WindTurbine(spawnPosition);
-    //    turbine->shader(pPhongShader, true);
-    //    turbine->loadModel(ASSET_DIRECTORY "wind_turbine_pole.dae", ASSET_DIRECTORY "wind_turbine_wheel.dae");
-    //    Models.push_back(turbine);
-    //    WindTurbines.push_back(turbine);
-    //}
+        pPhongShader = new PhongShader();
+        WindTurbine* turbine = new WindTurbine(spawnPosition);
+        turbine->shader(pPhongShader, true);
+        turbine->loadModel(ASSET_DIRECTORY "wind_turbine_pole.dae", ASSET_DIRECTORY "wind_turbine_wheel.dae");
+        Models.push_back(turbine);
+        WindTurbines.push_back(turbine);
+    }
 
-    //for (int i = 0; i < UPWINDS_COUNT; i++)
-    //{
-    //    Vector spawnPosition = getRandomSpawnPosition();
+    for (int i = 0; i < UPWINDS_COUNT; i++)
+    {
+        Vector spawnPosition = getRandomSpawnPosition();
 
-    //    pPhongShader = new PhongShader();
-    //    Wind* wind = new Wind(spawnPosition);
-    //    wind->shader(pPhongShader, true);
-    //    wind->loadModel(ASSET_DIRECTORY "upwind.dae");
-    //    Models.push_back(wind);
-    //    Winds.push_back(wind);
-    //}
+        pPhongShader = new PhongShader();
+        Wind* wind = new Wind(spawnPosition);
+        wind->shader(pPhongShader, true);
+        wind->loadModel(ASSET_DIRECTORY "upwind.dae");
+        Models.push_back(wind);
+        Winds.push_back(wind);
+    }
 
-    //for (int i = 0; i < SPHERES_COUNT; i++)
-    //{
-    //    Vector spawnPosition = getRandomSpawnPosition();
+    for (int i = 0; i < SPHERES_COUNT; i++)
+    {
+        Vector spawnPosition = getRandomSpawnPosition();
 
-    //    pPhongShader = new PhongShader();
-    //    Sphere* sphere = new Sphere(spawnPosition);
-    //    sphere->shader(pPhongShader, true);
-    //    sphere->loadModel(ASSET_DIRECTORY "sphere.dae");
-    //    Models.push_back(sphere);
-    //    Spheres.push_back(sphere);
-    //}
+        pPhongShader = new PhongShader();
+        Sphere* sphere = new Sphere(spawnPosition);
+        sphere->shader(pPhongShader, true);
+        sphere->loadModel(ASSET_DIRECTORY "sphere.dae");
+        Models.push_back(sphere);
+        Spheres.push_back(sphere);
+    }
 
-    //for (int i = 0; i < CAPSULES_COUNT; i++)
-    //{
-    //    Vector spawnPosition = getRandomSpawnPosition();
+    for (int i = 0; i < CAPSULES_COUNT; i++)
+    {
+        Vector spawnPosition = getRandomSpawnPosition();
 
-    //    pPhongShader = new PhongShader();
-    //    Capsule* capsule = new Capsule(spawnPosition);
-    //    capsule->shader(pPhongShader, true);
-    //    capsule->loadModel(ASSET_DIRECTORY "capsule.dae");
-    //    Models.push_back(capsule);
-    //    Capsules.push_back(capsule);
-    //}
+        pPhongShader = new PhongShader();
+        Capsule* capsule = new Capsule(spawnPosition);
+        capsule->shader(pPhongShader, true);
+        capsule->loadModel(ASSET_DIRECTORY "capsule.dae");
+        Models.push_back(capsule);
+        Capsules.push_back(capsule);
+    }
 
-    //for (int i = 0; i < SPEED_DISCS_30_COUNT; i++)
-    //{
-    //    Vector spawnPosition = getRandomSpawnPosition();
+    for (int i = 0; i < SPEED_DISCS_30_COUNT; i++)
+    {
+        Vector spawnPosition = getRandomSpawnPosition();
 
-    //    pPhongShader = new PhongShader();
-    //    SpeedDisc* disc = new SpeedDisc(spawnPosition);
-    //    disc->shader(pPhongShader, true);
-    //    disc->loadModel(SpeedDisc::Min30);
-    //    Models.push_back(disc);
-    //    SpeedDiscs.push_back(disc);
-    //}
+        pPhongShader = new PhongShader();
+        SpeedDisc* disc = new SpeedDisc(spawnPosition);
+        disc->shader(pPhongShader, true);
+        disc->loadModel(SpeedDisc::Min30);
+        Models.push_back(disc);
+        SpeedDiscs.push_back(disc);
+    }
 
-    //for (int i = 0; i < SPEED_DISCS_50_COUNT; i++)
-    //{
+    for (int i = 0; i < SPEED_DISCS_50_COUNT; i++)
+    {
 
-    //}
+    }
 
-    //for (int i = 0; i < SPEED_DISCS_75_COUNT; i++)
-    //{
+    for (int i = 0; i < SPEED_DISCS_75_COUNT; i++)
+    {
 
-    //}
+    }
 
-    //for (int i = 0; i < SPEED_DISCS_90_COUNT; i++)
-    //{
+    for (int i = 0; i < SPEED_DISCS_90_COUNT; i++)
+    {
 
-    //}
+    }
 
-    //for (int i = 0; i < SPEED_DISCS_110_COUNT; i++)
-    //{
+    for (int i = 0; i < SPEED_DISCS_110_COUNT; i++)
+    {
 
-    //}
+    }
 }
 
-//void Application::handleTerrainCollision()
-//{
-//    for (int x = 1; x < pTerrain->imgWidth; x+=4) 
-//    {
-//        for (int y = 1; y < pTerrain->imgHeight; y+=4)
-//        {
-//            Vector v = pTerrain->tmpVertices[(y) * pTerrain->imgWidth + (x)];
-//            AABB bb = glider->boundingBox();
-//
-//            // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
-//            if (bb.intersectWith(v))
-//            {
-//                glider->crash();
-//                gameOver();
-//            }
-//        }
-//    }
-//
-//    // Version 2
-//
-//}
+void Application::handleTerrainCollision()
+{
+    for (int x = 1; x < pTerrain->imgWidth; x+=4) 
+    {
+        for (int y = 1; y < pTerrain->imgHeight; y+=4)
+        {
+            Vector v = pTerrain->tmpVertices[(y) * pTerrain->imgWidth + (x)];
+            AABB bb = glider->boundingBox();
+
+            // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
+            if (bb.intersectWith(v))
+            {
+                glider->crash();
+                gameOver();
+            }
+        }
+    }
+
+    // Version 2
+
+}
 
 /// <summary>
 ///     Prüft, ob der Spieler ein einsammelbares Objekt berührt.
@@ -438,24 +459,24 @@ void Application::restartGame()
 /// <summary>
 ///     Gibt eine zuällige Position über dem Terrain für ein Objekt zurück.
 /// </summary>
-//Vector Application::getRandomSpawnPosition()
-//{
-//    int indexX = rand() % pTerrain->imgWidth;
-//    int indexZ = rand() % pTerrain->imgHeight;
-//    Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
-//    float y = vertex.Y + (rand() % MAX_SPAWN_Y);
-//
-//    return Vector(vertex.X * TERRAIN_SCALE, y, vertex.Z * TERRAIN_SCALE);
-//}
+Vector Application::getRandomSpawnPosition()
+{
+    int indexX = rand() % pTerrain->imgWidth;
+    int indexZ = rand() % pTerrain->imgHeight;
+    Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
+    float y = vertex.Y + (rand() % MAX_SPAWN_Y);
 
-//Vector Application::getRandomSpawnPositionOnTerrain()
-//{
-//    int indexX = rand() % pTerrain->imgWidth;
-//    int indexZ = rand() % pTerrain->imgHeight;
-//    Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
-//
-//    return Vector(vertex.X * TERRAIN_SCALE, (vertex.Y * TERRAIN_SCALE) - 0.1, vertex.Z * TERRAIN_SCALE);
-//}
+    return Vector(vertex.X * TERRAIN_SCALE, y, vertex.Z * TERRAIN_SCALE);
+}
+
+Vector Application::getRandomSpawnPositionOnTerrain()
+{
+    int indexX = rand() % pTerrain->imgWidth;
+    int indexZ = rand() % pTerrain->imgHeight;
+    Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
+
+    return Vector(vertex.X * TERRAIN_SCALE, (vertex.Y * TERRAIN_SCALE) - 0.1, vertex.Z * TERRAIN_SCALE);
+}
 
 float Application::getRandomValue(float min, float max)
 {
@@ -506,4 +527,17 @@ void Application::end()
         delete *it;
     
     Models.clear();
+}
+
+void Application::lockCamToModel(Camera& cam, BaseModel* model)
+{
+    //Position
+    cam.setPosition((model->transform() * this->camTM).translation());
+
+    //Up
+    Vector gliederUp = model->transform().up().normalize();
+    cam.setUp(this->camTM.transformVec3x3(gliederUp));
+
+    //target
+    cam.setTarget((model->transform() * this->targetTM).translation());
 }

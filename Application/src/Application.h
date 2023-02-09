@@ -56,6 +56,8 @@ protected:
     WindList Winds;
     WindTurbineList WindTurbines;
     DecorationList Decorations;
+    Matrix camTM;
+    Matrix targetTM;
 
     void spawnDynamicObjects();
     void handleCollectablesCollisions();
@@ -69,6 +71,7 @@ protected:
     Vector getRandomSpawnPositionOnTerrain();
     float getRandomValue(float min, float max);
     void drawText(const char* text, float x, float y);
+    void lockCamToModel(Camera& cam, BaseModel* model);
 };
 
 #endif /* Application_hpp */

@@ -21,6 +21,7 @@
 #include "vector.h"
 #include "matrix.h"
 
+
 class BaseCamera
 {
 public:
