@@ -89,18 +89,29 @@ void Glider::draw(const BaseCamera& Cam)
     glider->draw(Cam);
 }
 
+//https://www.youtube.com/watch?v=uIgEwJVWVpY&t=368s&ab_channel=ChristopherScottVaughen
 void Glider::calcNextMovment() {
-
-    float lift = 0;
-    float drag = 0;
-    float weight = 1;
-    float velocity = 0;
+    Vector unitVecNegY = Vector(0, -1, 0);
+    Vector unitVecPosZ = Vector(0, 0, 1);
+    
+    float velocity = 1;
+    float lift = 0.000111788491;
+    float drag = 0.0000324;
+    float weight = 0.317522032;
 
     float pitch = 1;
 
-    Vector unitVecDown = Vector(0, -1,  0);
+    float phi = acos(Transform.forward().normalize().dot(unitVecPosZ));
+    if (Transform.forward().normalize().Y < 0) 
+    {
+        phi *= -1;
+    }
 
-    this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + Transform.up() * lift +  unitVecDown * weight;
+    std::cout << phi << std::endl;
+
+
+
+    this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
     this->nextRot = this->rotUpDown * pitch;
     
 }

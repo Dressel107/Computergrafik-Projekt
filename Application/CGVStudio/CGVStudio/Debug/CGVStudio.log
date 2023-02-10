@@ -1,2 +1,5 @@
 ﻿  Glider.cpp
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(98,32): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(99,27): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(100,31): warning C4305: 'initializing': truncation from 'double' to 'float'
   CGVStudio.vcxproj -> C:\Users\Lenovo\Documents\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
