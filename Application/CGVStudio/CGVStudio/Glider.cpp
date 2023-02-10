@@ -59,13 +59,14 @@ void Glider::navigate(float UpDown, float LeftRight)
 Vector Glider::update(float dtime)
 {
     Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
+    calcNextMovment();
 
     //Kontinuierlich Geradeaus
-    Vector gliderMovement = Transform.forward() * flyPower  * dtime ;
+    Vector gliderMovement = this->nextPos * dtime ;
     moveForwardMat.translation(gliderMovement);
 
     //Neigen Oben/Unten
-    rotUpDownMat.rotationX(this->rotUpDown * rotationPower * dtime);
+    rotUpDownMat.rotationX(this->nextRot * dtime);
 
     //Neigen Links/Rechts
     rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
@@ -86,6 +87,22 @@ void Glider::navigateForTesting(float forwardBackward, float UpDown, float LeftR
 void Glider::draw(const BaseCamera& Cam)
 {
     glider->draw(Cam);
+}
+
+void Glider::calcNextMovment() {
+
+    float lift = 0;
+    float drag = 0;
+    float weight = 1;
+    float velocity = 0;
+
+    float pitch = 1;
+
+    Vector unitVecDown = Vector(0, -1,  0);
+
+    this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + Transform.up() * lift +  unitVecDown * weight;
+    this->nextRot = this->rotUpDown * pitch;
+    
 }
 
 

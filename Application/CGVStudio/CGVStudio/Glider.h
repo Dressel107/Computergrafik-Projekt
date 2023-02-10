@@ -27,4 +27,8 @@ protected:
     Vector movingVec;
     float flyPower;
     float rotationPower;
+    
+    Vector nextPos;
+    float nextRot;
+    void calcNextMovment();
 };
