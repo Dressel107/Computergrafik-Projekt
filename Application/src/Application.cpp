@@ -95,7 +95,7 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     pPhongShader = new PhongShader();
     glider = new Glider(playerSpawnPosition);
     glider->shader(pPhongShader, true);
-    glider->loadModel(ASSET_DIRECTORY "untitled.dae");
+    glider->loadModel(ASSET_DIRECTORY "glider.dae");
     Models.push_back(glider);
 
     //Kameraeinstellungen
