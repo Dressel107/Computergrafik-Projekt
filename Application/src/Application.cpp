@@ -49,7 +49,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 50;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
-Vector playerSpawnPosition(2, 18, -30);
+Vector playerSpawnPosition(2, 38, -30);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
