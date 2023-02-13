@@ -10,7 +10,8 @@ public:
     bool loadModel(const char* poleFile, const char* wheelFile);
     void update(float dtime);
     virtual void draw(const BaseCamera& Cam);
-    //const AABB& boundingBox() const { return pole->boundingBox(); }
+    const AABB& boundingBoxPole() const { return pole->boundingBox(); }
+    const AABB& boundingBoxWheel() const { return wheel->boundingBox(); }
 protected:
     Model* pole;
     Model* wheel;

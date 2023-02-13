@@ -39,14 +39,9 @@ double oldMousePosY = 0;
 const int SPHERES_COUNT = 60;
 const int CAPSULES_COUNT = 20;
 const int UPWINDS_COUNT = 10;
-const int SPEED_DISCS_30_COUNT = 2;
-const int SPEED_DISCS_50_COUNT = 6;
-const int SPEED_DISCS_75_COUNT = 3;
-const int SPEED_DISCS_90_COUNT = 2;
-const int SPEED_DISCS_110_COUNT = 2;
 const int WIND_TURBINES_COUNT = 40;
 const int BUSHES_COUNT = 60;
-const int WOODS_COUNT = 50;
+const int WOODS_COUNT = 2;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
 Vector playerSpawnPosition(2, 28, -80);
@@ -104,7 +99,7 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     
 
     //Dynamische Objekte spawnen
-    //spawnDynamicObjects();
+    spawnDynamicObjects();
 
     //drawText("Geschwindigkeit", 10, 10);
 }
@@ -204,13 +199,13 @@ void Application::update(float dtime)
     glider->update(dtime);
     lockCamToModel(Cam, glider);
 
-    //updateObjects(dtime);
+    updateObjects(dtime);
 
 
     // Kollisionen prüfen
-    //handleCollectablesCollisions();
+    handleObjectCollisions();
     //handleUpwindsCollisions();
-    //handleTerrainCollision();
+    handleTerrainCollision();
     //Cam.setUp(Vector(0, 0, 1));
     Cam.update();
 
@@ -293,38 +288,6 @@ void Application::spawnDynamicObjects()
         Models.push_back(capsule);
         Capsules.push_back(capsule);
     }
-
-    for (int i = 0; i < SPEED_DISCS_30_COUNT; i++)
-    {
-        Vector spawnPosition = getRandomSpawnPosition();
-
-        pPhongShader = new PhongShader();
-        SpeedDisc* disc = new SpeedDisc(spawnPosition);
-        disc->shader(pPhongShader, true);
-        disc->loadModel(SpeedDisc::Min30);
-        Models.push_back(disc);
-        SpeedDiscs.push_back(disc);
-    }
-
-    for (int i = 0; i < SPEED_DISCS_50_COUNT; i++)
-    {
-
-    }
-
-    for (int i = 0; i < SPEED_DISCS_75_COUNT; i++)
-    {
-
-    }
-
-    for (int i = 0; i < SPEED_DISCS_90_COUNT; i++)
-    {
-
-    }
-
-    for (int i = 0; i < SPEED_DISCS_110_COUNT; i++)
-    {
-
-    }
 }
 
 void Application::handleTerrainCollision()
@@ -333,14 +296,14 @@ void Application::handleTerrainCollision()
     {
         for (int y = 1; y < pTerrain->imgHeight; y+=4)
         {
-            Vector v = pTerrain->tmpVertices[(y) * pTerrain->imgWidth + (x)];
+            Vector v = (pTerrain->tmpVertices[(y) * pTerrain->imgWidth + (x)]) * TERRAIN_SCALE;
             AABB bb = glider->boundingBox();
 
             // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
             if (bb.intersectWith(v))
             {
                 glider->crash();
-                gameOver();
+                
             }
         }
     }
@@ -350,44 +313,56 @@ void Application::handleTerrainCollision()
 }
 
 /// <summary>
-///     Prüft, ob der Spieler ein einsammelbares Objekt berührt.
+///     Prüft, ob der Spieler ein bestimmtes Objekt berührt und führt entsprechende Aktionen aus.
 /// </summary>
-void Application::handleCollectablesCollisions()
+void Application::handleObjectCollisions()
 {
     AABB bb = this->glider->boundingBox();
 
+    //for (int i = 0; i < Capsules.size(); i++)
+    //{
+    //    Capsule* capsule = Capsules.[i];
+    //}
+
     for each (Capsule* capsule in Capsules)
     {
-        // Prüfen, ob Spieler das Collectable berührt
+        AABB capsuleBB = capsule->boundingBox();
+
         if (bb.intersectWith(capsule->boundingBox()))
         {
             points += capsule->collect();
-            Capsules.remove(capsule);
+            //Capsules.remove(capsule);
             Models.remove(capsule);
         }
     }
 
     for each (Sphere* sphere in Spheres)
     {
-        // Prüfen, ob Spieler das Collectable berührt
         if (bb.intersectWith(sphere->boundingBox()))
         {
             points += sphere->collect();
-            Spheres.remove(sphere);
+            //Spheres.remove(sphere);
             Models.remove(sphere);
         }
     }
 
-    //for each (SpeedDisc* speedDisc in SpeedDiscs)
-    //{
-    //    // Prüfen, ob Spieler das Collectable berührt
-    //    if (bb.intersectWith(speedDisc->boundingBox()))
-    //    {
-    //        points += speedDisc->collect();
-    //        SpeedDiscs.remove(speedDisc);
-    //        Models.remove(speedDisc);
-    //    }
-    //}
+    for each (WindTurbine* windTurbine in WindTurbines)
+    {
+        if (bb.intersectWith(windTurbine->boundingBoxPole()) || bb.intersectWith(windTurbine->boundingBoxWheel()))
+        {
+            this->glider->crash();
+        }
+    }
+
+    for each (Wind* wind in Winds)
+    {
+        AABB aaaaaa = wind->boundingBox();
+
+        if (bb.intersectWith(wind->boundingBox()))
+        {
+            this->glider->upwind();
+        }
+    }
 }
 
 /// <summary>
@@ -437,8 +412,19 @@ void Application::updateObjects(float dtime)
         turbine->update(dtime);
     }
 
+    bool firstWoodMoved = false;
     for each (Decoration* decoration in Decorations)
     {
+        if (firstWoodMoved)
+        {
+            decoration->setPos(glider->boundingBox().Min);
+        }
+        else
+        {
+            decoration->setPos(glider->boundingBox().Max);
+            firstWoodMoved = true;
+        }
+
         decoration->update(dtime);
     }
 }

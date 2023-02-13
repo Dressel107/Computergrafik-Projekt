@@ -183,8 +183,8 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
     Box.Min.X = std::numeric_limits<float>::max();
     Box.Min.Y = std::numeric_limits<float>::max();
     Box.Min.Z = std::numeric_limits<float>::max();
-    Box.Max.Z = std::numeric_limits<float>::min();
-    Box.Max.Z = std::numeric_limits<float>::min();
+    Box.Max.X = std::numeric_limits<float>::min();
+    Box.Max.Y = std::numeric_limits<float>::min();
     Box.Max.Z = std::numeric_limits<float>::min();
 
     // Den kleinsten und größten Punkt suchen
@@ -212,11 +212,15 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
             {
                 Box.Max.Y = pScene->mMeshes[i]->mVertices[j].y;
             }
-            if (pScene->mMeshes[i]->mVertices[j].z > Box.Max.Z) {
+            if (pScene->mMeshes[i]->mVertices[j].z > Box.Max.Z) 
+            {
                 Box.Max.Z = pScene->mMeshes[i]->mVertices[j].z;
             }
         }
     }
+
+    Box.SpawnMin = Box.Min;
+    Box.SpawnMax = Box.Max;
 }
 
 void Model::loadNodes(const aiScene* pScene)

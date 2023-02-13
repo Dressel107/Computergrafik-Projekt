@@ -38,6 +38,10 @@ void WindTurbine::update(float dtime)
     RM.rotationZ(currentRotation);
     pole->transform(TM);
     wheel->transform(MoveWheel * RM);
+
+    // BoundingBoxen aktualisieren
+    this->pole->BoundingBox.translate(spawnPosition);
+    this->wheel->BoundingBox.translate(MoveWheel.translation());
 }
 
 void WindTurbine::draw(const BaseCamera& Cam)

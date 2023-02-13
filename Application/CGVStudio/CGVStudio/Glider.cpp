@@ -26,6 +26,7 @@ bool Glider::loadModel(const char* gliderFile)
     Matrix TM;
     this->Transform = TM.translation(this->spawnPosition);
     glider->transform(this->Transform);
+    this->glider->BoundingBox.translate(spawnPosition);
     return true;
 }
 
@@ -34,7 +35,7 @@ bool Glider::loadModel(const char* gliderFile)
 /// </summary>
 void Glider::crash()
 {
-
+    this->isCrashed = true;
 }
 
 /// <summary>
@@ -42,7 +43,7 @@ void Glider::crash()
 /// </summary>
 void Glider::upwind()
 {
-
+    std::cout << "Aufwind";
 }
 
 /// <summary>
@@ -58,24 +59,43 @@ void Glider::navigate(float UpDown, float LeftRight)
 
 Vector Glider::update(float dtime)
 {
-    if (this->start == false) {
-        return this->Transform.translation();
+    // Wenn Gleiter gecrasht ist, auf Startposition zurücksetzen
+    if (this->isCrashed)
+    {
+        Matrix moveToSpawnPos;
+        moveToSpawnPos.translation(this->spawnPosition);
+
+        Transform = moveToSpawnPos;
+        this->isCrashed = false;
     }
-    Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
-    calcNextMovment();
+    else
+    {
+        if (this->start == false) 
+        {
+            return this->Transform.translation();
+        }
+        Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
+        calcNextMovment();
 
-    //Kontinuierlich Geradeaus
-    Vector gliderMovement = this->nextPos * dtime ;
-    moveForwardMat.translation(gliderMovement);
+        //Kontinuierlich Geradeaus
+        Vector gliderMovement = this->nextPos * dtime;
+        moveForwardMat.translation(gliderMovement);
 
-    //Neigen Oben/Unten
-    rotUpDownMat.rotationX(this->nextRot * dtime);
+        //Neigen Oben/Unten
+        rotUpDownMat.rotationX(this->nextRot * dtime);
 
-    //Neigen Links/Rechts
-    rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
+        //Neigen Links/Rechts
+        rotLeftRightMat.rotationZ(this->rotLeftRight * dtime);
 
-    this->Transform =  moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
+        this->Transform = moveForwardMat * this->Transform * rotUpDownMat * rotLeftRightMat;
+    }
+
+    // Gleiter bewegen
     glider->transform(this->Transform);
+
+    // BoundingBox aktualisieren
+    this->glider->BoundingBox.translate(this->Transform.translation());
+
     return this->Transform.translation();
 }
 

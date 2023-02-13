@@ -17,6 +17,8 @@ class AABB
 public:
     Vector Min;
     Vector Max;
+    Vector SpawnMin;
+    Vector SpawnMax;
     AABB();
     AABB(const Vector& min, const Vector& max);
     AABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);

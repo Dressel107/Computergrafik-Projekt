@@ -30,7 +30,10 @@ void Sphere::update(float dtime)
     Matrix TM;
     TM.translation(this->spawnPosition);
 
-    sphere->transform(TM);
+    this->sphere->transform(TM);
+
+    // BoundingBox aktualisieren
+    this->sphere->BoundingBox.translate(spawnPosition);
 }
 
 void Sphere::draw(const BaseCamera& Cam)

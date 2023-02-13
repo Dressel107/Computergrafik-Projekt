@@ -35,6 +35,9 @@ void Capsule::update(float dtime)
     Matrix RM;
     RM.rotationY(currentRotation);
     capsule->transform(TM * RM);
+
+    // BoundingBox aktualisieren
+    this->capsule->BoundingBox.translate(spawnPosition);
 }
 
 void Capsule::draw(const BaseCamera& Cam)

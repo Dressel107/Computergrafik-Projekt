@@ -10,13 +10,16 @@
 
 AABB::AABB()
 {
-    
+    Min = Vector(0, 0, 0);
+    Max = Vector(0, 0, 0);
+    SpawnMin = Vector(0, 0, 0);
+    SpawnMax = Vector(0, 0, 0);
 }
-AABB::AABB(const Vector& min, const Vector& max) : Min(min), Max(max)
+AABB::AABB(const Vector& min, const Vector& max) : Min(min), Max(max), SpawnMin(min), SpawnMax(max)
 {
     
 }
-AABB::AABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) : Min(minX, minY, minZ), Max(maxX, maxY, maxZ)
+AABB::AABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) : Min(minX, minY, minZ), Max(maxX, maxY, maxZ), SpawnMin(minX, minY, minZ), SpawnMax(maxX, maxY, maxZ)
 {
     
 }
@@ -57,7 +60,7 @@ bool AABB::intersectWith(AABB aabb)
 /// </summary>
 void AABB::translate(Vector position)
 {
-    Min += position;
-    Max += position;
+    Min = SpawnMin + position;
+    Max = SpawnMax + position;
 }
 

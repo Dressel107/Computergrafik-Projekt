@@ -33,4 +33,5 @@ protected:
     float nextRot;
     void calcNextMovment();
     bool start = false;
+    bool isCrashed = false;
 };

@@ -60,7 +60,7 @@ protected:
     Matrix targetTM;
 
     void spawnDynamicObjects();
-    void handleCollectablesCollisions();
+    void handleObjectCollisions();
     void handleUpwindsCollisions();
     void handleTerrainCollision();
     void updateObjects(float dtime);

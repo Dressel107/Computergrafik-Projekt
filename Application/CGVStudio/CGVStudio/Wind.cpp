@@ -14,9 +14,11 @@ Wind::~Wind()
 
 bool Wind::loadModel(const char* file)
 {
-    wind = new Model(file, false);
-    wind->shader(shader());
-    //this->boundingBox = wind->BoundingBox;
+    this->wind = new Model(file, false);
+    this->wind->shader(shader());
+
+    // BoundingBox aktualisieren
+    this->wind->BoundingBox.translate(spawnPosition);
 
     return true;
 }
@@ -32,6 +34,7 @@ void Wind::update(float dtime)
     RM.rotationY(currentRotation);
     wind->transform(TM * RM);
 
+    // BoundingBox aktualisieren
     wind->BoundingBox.translate(spawnPosition);
 }
 
