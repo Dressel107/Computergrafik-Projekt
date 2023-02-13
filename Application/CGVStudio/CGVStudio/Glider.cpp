@@ -58,6 +58,9 @@ void Glider::navigate(float UpDown, float LeftRight)
 
 Vector Glider::update(float dtime)
 {
+    if (this->start == false) {
+        return this->Transform.translation();
+    }
     Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
     calcNextMovment();
 
@@ -89,55 +92,49 @@ void Glider::draw(const BaseCamera& Cam)
     glider->draw(Cam);
 }
 
-float velocity = 1;
-float lift = 0.000111788491;
-float drag = 0.0000324;
-float weight = 0.317522032;
-float pitch = 1;
 
-
-float tmpPhi = 1;
 
 Vector unitVecNegY = Vector(0, -1, 0);
 Vector unitVecPosZ = Vector(0, 0, 1);
 
+float velocity = 5;
+float lift = 0.000111788491;
+float drag = 0.0000324;
+float weight = 0.317522032;
+
+float pitch = 0;
+
 //https://www.youtube.com/watch?v=uIgEwJVWVpY&t=368s&ab_channel=ChristopherScottVaughen
 void Glider::calcNextMovment() {
+  
 
 
-
-    //phi = Winkel zwischen horizontalen Achse und Forwardachse des Gleiters
     float phi = acos(Transform.forward().normalize().dot(unitVecPosZ));
+    phi = phi * std::abs(phi);
     if (Transform.forward().normalize().Y < 0) 
     {
         phi *= -1;
     }
 
-    //velocity = 
 
-    ////std::cout << phi << std::endl;
+    velocity = velocity - phi  / 1000;
+    if (velocity < -1) {
+        velocity = -1;
+    }
+    if (velocity > 10) {
+        velocity = 10;
+    }
 
-    ////tmpPhi wird für die Beschleuning benöting,so dass die Geschwindigkeits Zunahme/Abnahme nicht linear verläuft 
-    //if (phi > 0)
-    //{
-    //    tmpPhi = tmpPhi * 1.00001;
-    //    tmpPhi = std::min(tmpPhi, 2.0f);
-    //}
-    //else {
-    //    //tmpPhi = tmpPhi * 0.9;
-    //    //tmpPhi = std::max(tmpPhi, 0.1f);
-    //}
-    //
-    //
-    //velocity = velocity - (phi * tmpPhi);
-    //if (velocity < -3) {
-    //    velocity = -3;
-    //}
+    if (phi > -M_PI / 2 && phi < M_PI / 2) {
+        pitch = 1 / velocity;
+    }
+
+    //std::cout << velocity << "|" << pitch << std::endl;
 
 
 
-    this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + Transform.up() * lift + unitVecNegY * weight;
-    this->nextRot = this->rotUpDown * pitch;
+    this->nextPos = Transform.forward() * velocity  + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
+    this->nextRot = this->rotUpDown + pitch;
     
 }
 

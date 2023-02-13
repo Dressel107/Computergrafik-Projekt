@@ -16,6 +16,7 @@ public:
     void crash();
     void navigate(float UpDown, float LeftRight);
     void navigateForTesting(float forwardBackward, float UpDown, float LeftRight);
+    void startGlider() { start = true; };
 protected:
     Model* glider;
     Vector spawnPosition;
@@ -31,4 +32,5 @@ protected:
     Vector nextPos;
     float nextRot;
     void calcNextMovment();
+    bool start = false;
 };
