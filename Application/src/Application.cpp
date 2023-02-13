@@ -49,7 +49,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 50;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
-Vector playerSpawnPosition(2, 18, -30);
+Vector playerSpawnPosition(2, 28, -80);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -187,8 +187,8 @@ void Application::update(float dtime)
 
     if (glfwGetKey(pWindow, GLFW_KEY_3) == GLFW_PRESS)// Cockpitsicht
     {
-        this->camTM.translation(Vector(0, 1, 3));
-        this->targetTM.translation(Vector(0, 1, 3));
+        this->camTM.translation(Vector(0, 0.7, 1.5));
+        this->targetTM.translation(Vector(0, 0.7, 1.6));
     }
 
     // Gleiter navigieren

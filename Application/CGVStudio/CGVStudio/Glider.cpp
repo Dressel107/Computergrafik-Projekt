@@ -94,7 +94,7 @@ void Glider::draw(const BaseCamera& Cam)
 Vector unitVecNegY = Vector(0, -1, 0);
 Vector unitVecPosZ = Vector(0, 0, 1);
 
-float velocity = 2;
+float velocity = 5;
 float lift = 0.000111788491;
 float drag = 0.0000324;
 float weight = 0.317522032;
@@ -111,23 +111,22 @@ void Glider::calcNextMovment() {
         phi *= -1;
     }
 
-    float solu11 = -weight * sin(phi - drag * (velocity * velocity));
-    float solu12 = -weight * cos(phi + lift * (velocity * velocity));
+
+    velocity = velocity - phi * 00.1;
+    if (velocity < -1) {
+        velocity = -1;
+    }
+    if (velocity > 10) {
+        velocity = 10;
+    }
+
+    std::cout << velocity << std::endl;
+
+    //pitch = velocity 
 
 
-
-
-
-    float speed = velocity / solu11;
-    float agle = pitch / solu12;
-    //velocity = velocity / solu11;
-     //pitch = pitch / solu12;
-
-    //std::cout << solu11 << std::endl;
-    std::cout << solu12 << std::endl;
-
-    this->nextPos = Transform.forward()  + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
-    this->nextRot = this->rotUpDown - solu12;
+    this->nextPos = Transform.forward()   + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
+    this->nextRot = this->rotUpDown;
     
 }
 
