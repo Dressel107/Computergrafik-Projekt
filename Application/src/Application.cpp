@@ -171,6 +171,11 @@ void Application::update(float dtime)
         leftRight = 1.0f;
     }
 
+    //Gleiterstarten
+    if (glfwGetKey(pWindow, GLFW_KEY_S) == GLFW_PRESS) {
+        this->glider->startGlider();
+    }
+
     //Sicht ändern
     
     if (glfwGetKey(pWindow, GLFW_KEY_1) == GLFW_PRESS)//normale Sicht

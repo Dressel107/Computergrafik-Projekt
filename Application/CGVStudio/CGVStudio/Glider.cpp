@@ -58,6 +58,9 @@ void Glider::navigate(float UpDown, float LeftRight)
 
 Vector Glider::update(float dtime)
 {
+    if (this->start == false) {
+        return this->Transform.translation();
+    }
     Matrix moveForwardMat, rotUpDownMat, rotLeftRightMat;
     calcNextMovment();
 
@@ -99,20 +102,22 @@ float lift = 0.000111788491;
 float drag = 0.0000324;
 float weight = 0.317522032;
 
-float pitch = 1;
+float pitch = 0;
 
 //https://www.youtube.com/watch?v=uIgEwJVWVpY&t=368s&ab_channel=ChristopherScottVaughen
 void Glider::calcNextMovment() {
+  
 
 
     float phi = acos(Transform.forward().normalize().dot(unitVecPosZ));
+    phi = phi * std::abs(phi);
     if (Transform.forward().normalize().Y < 0) 
     {
         phi *= -1;
     }
 
 
-    velocity = velocity - phi * 00.1;
+    velocity = velocity - phi  / 1000;
     if (velocity < -1) {
         velocity = -1;
     }
@@ -120,13 +125,16 @@ void Glider::calcNextMovment() {
         velocity = 10;
     }
 
-    std::cout << velocity << std::endl;
+    if (phi > -M_PI / 2 && phi < M_PI / 2) {
+        pitch = 1 / velocity;
+    }
 
-    //pitch = velocity 
+    //std::cout << velocity << "|" << pitch << std::endl;
 
 
-    this->nextPos = Transform.forward()   + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
-    this->nextRot = this->rotUpDown;
+
+    this->nextPos = Transform.forward() * velocity  + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
+    this->nextRot = this->rotUpDown + pitch;
     
 }
 
