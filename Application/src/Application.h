@@ -61,7 +61,7 @@ protected:
 
     void spawnDynamicObjects();
     void handleObjectCollisions();
-    void handleUpwindsCollisions();
+    void handleUpwindsCollisions(float dtime);
     void handleTerrainCollision();
     void updateObjects(float dtime);
     void updateUITexts();

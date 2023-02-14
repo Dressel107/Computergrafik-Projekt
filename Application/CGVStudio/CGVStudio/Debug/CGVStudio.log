@@ -1,3 +1,5 @@
-﻿  WindTurbine.cpp
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\WindTurbine.cpp(29,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-  CGVStudio.vcxproj -> C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
+﻿  Glider.cpp
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(138,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(139,23): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(140,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
+  CGVStudio.vcxproj -> C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe

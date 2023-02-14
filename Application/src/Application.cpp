@@ -44,7 +44,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 2;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 10;
-Vector playerSpawnPosition(2, 28, -80);
+Vector playerSpawnPosition(0, 10, -10);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -99,7 +99,14 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     
 
     //Dynamische Objekte spawnen
-    spawnDynamicObjects();
+    //spawnDynamicObjects();
+
+    pPhongShader = new PhongShader();
+    Wind* wind = new Wind(Vector(0,0,0));
+    wind->shader(pPhongShader, true);
+    wind->loadModel(ASSET_DIRECTORY "upwind.dae");
+    Models.push_back(wind);
+    Winds.push_back(wind);
 
     //drawText("Geschwindigkeit", 10, 10);
 }
@@ -167,10 +174,16 @@ void Application::update(float dtime)
     }
 
     //Gleiterstarten
-    if (glfwGetKey(pWindow, GLFW_KEY_S) == GLFW_PRESS) {
+    if (glfwGetKey(pWindow, GLFW_KEY_S) == GLFW_PRESS)
+    {
         this->glider->startGlider();
     }
 
+    //Spiel restarten
+    if (glfwGetKey(pWindow, GLFW_KEY_R) == GLFW_PRESS)
+    {
+        this->restartGame();
+    }
     //Sicht ändern
     
     if (glfwGetKey(pWindow, GLFW_KEY_1) == GLFW_PRESS)//normale Sicht
@@ -185,9 +198,10 @@ void Application::update(float dtime)
         this->targetTM.translation(Vector(0,0,-5));
     }
 
+    // Todo: anpassen
     if (glfwGetKey(pWindow, GLFW_KEY_3) == GLFW_PRESS)// Cockpitsicht
     {
-        this->camTM.translation(Vector(0, 0.7, 1.5));
+        this->camTM.translation(Vector(0, 0.7, 1.5)); 
         this->targetTM.translation(Vector(0, 0.7, 1.6));
     }
 
@@ -203,10 +217,10 @@ void Application::update(float dtime)
 
 
     // Kollisionen prüfen
-    handleObjectCollisions();
-    //handleUpwindsCollisions();
-    handleTerrainCollision();
-    //Cam.setUp(Vector(0, 0, 1));
+    //handleObjectCollisions();
+    handleUpwindsCollisions(dtime);
+    //handleTerrainCollision();
+    
     Cam.update();
 
     // Prüfen, ob Zeit abgelaufen ist
@@ -360,7 +374,7 @@ void Application::handleObjectCollisions()
 
         if (bb.intersectWith(wind->boundingBox()))
         {
-            this->glider->upwind();
+            //this->glider->upwind(dtime);
         }
     }
 }
@@ -368,7 +382,7 @@ void Application::handleObjectCollisions()
 /// <summary>
 ///     Prüft, ob sich der Spieler in einem Aufwind befindet.
 /// </summary>
-void Application::handleUpwindsCollisions()
+void Application::handleUpwindsCollisions(float dtime)
 {
     AABB bb = this->glider->boundingBox();
 
@@ -376,7 +390,8 @@ void Application::handleUpwindsCollisions()
     {
         if (bb.intersectWith(wind->boundingBox()))
         {
-            this->glider->upwind();
+            Vector windPos = wind->transform().translation();
+            this->glider->upwind( dtime, windPos);
         }
     }
 }
@@ -445,6 +460,7 @@ void Application::gameOver()
 
 void Application::restartGame()
 {
+    this->glider->reset();
     isGameOver = false;
 }
 
