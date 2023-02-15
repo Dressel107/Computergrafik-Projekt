@@ -44,7 +44,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 4;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 40;
-Vector playerSpawnPosition(2, 28, -80);
+Vector playerSpawnPosition(0, 48, -80);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -106,11 +106,11 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     
 
     //Dynamische Objekte spawnen
-    spawnDynamicObjects();
+    //spawnDynamicObjects();
 
     //for Upwind testing
     //pPhongShader = new PhongShader();
-    //Wind* wind = new Wind(Vector(0,0,0));
+    //Wind* wind = new Wind(Vector(0,0,-20));
     //wind->shader(pPhongShader, true);
     //wind->loadModel(ASSET_DIRECTORY "upwind.dae");
     //Models.push_back(wind);
@@ -209,8 +209,8 @@ void Application::update(float dtime)
     // Todo: anpassen
     if (glfwGetKey(pWindow, GLFW_KEY_3) == GLFW_PRESS)// Cockpitsicht
     {
-        this->camTM.translation(Vector(0, 0.7, 1.5)); 
-        this->targetTM.translation(Vector(0, 0.7, 1.6));
+        this->camTM.translation(Vector(0, 1.4, 3)); 
+        this->targetTM.translation(Vector(0, 1.4, 3.1));
     }
 
     // Gleiter navigieren
