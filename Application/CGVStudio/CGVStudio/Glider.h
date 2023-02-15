@@ -31,7 +31,8 @@ protected:
     float rotationPower;
     
     Vector nextPos;
-    float nextRot;
+    float nextRotX;
+    float nextRotZ;
     void calcNextMovment();
     bool start = false;
     bool isCrashed = false;

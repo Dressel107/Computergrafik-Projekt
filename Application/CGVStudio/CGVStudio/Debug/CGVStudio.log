@@ -1,5 +1,5 @@
 ﻿  Glider.cpp
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(138,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(139,23): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(140,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(139,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(140,23): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(141,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
   CGVStudio.vcxproj -> C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
