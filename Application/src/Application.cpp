@@ -225,7 +225,7 @@ void Application::update(float dtime)
     // Kollisionen prüfen
     //handleObjectCollisions();
     handleUpwindsCollisions(dtime);
-    //handleTerrainCollision();
+    handleTerrainCollision();
     
     Cam.update();
 
@@ -559,7 +559,7 @@ Vector Application::getRandomSpawnPosition()
     Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
     float y = vertex.Y + (rand() % MAX_SPAWN_Y);
 
-    return Vector(vertex.X * TERRAIN_SCALE, y, vertex.Z * TERRAIN_SCALE);
+    return Vector(vertex.X * TERRAIN_SCALE, y * TERRAIN_SCALE, vertex.Z * TERRAIN_SCALE);
 }
 
 Vector Application::getRandomSpawnPositionOnTerrain()

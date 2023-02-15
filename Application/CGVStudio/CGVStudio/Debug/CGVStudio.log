@@ -1,6 +1,11 @@
-﻿  Capsule.cpp
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Capsule.cpp(30,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-  Wind.cpp
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Wind.cpp(31,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-  Code wird generiert...
+﻿  Application.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: "APIENTRY": Makro-Neudefinition
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\thirdparty\glfw\include\glfw\glfw3.h(98,1): message : Siehe vorherige Definition von "APIENTRY"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(212,51): warning C4305: "Argument": Verkürzung von "double" in "float"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(213,54): warning C4305: "Argument": Verkürzung von "double" in "float"
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(237,15): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(333,19): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(571,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(589,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(589,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
   CGVStudio.vcxproj -> C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
