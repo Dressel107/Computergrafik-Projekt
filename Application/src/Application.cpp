@@ -86,7 +86,7 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     TerrainShader* pTerrainShader = new TerrainShader(ASSET_DIRECTORY);
     pTerrainShader->diffuseTexture(Texture::LoadShared(ASSET_DIRECTORY "grass.bmp"));
     pTerrain->shader(pTerrainShader, true);
-    pTerrain->load(ASSET_DIRECTORY "heightmap2.png", ASSET_DIRECTORY"grass.bmp", ASSET_DIRECTORY"rock.bmp");
+    pTerrain->load(ASSET_DIRECTORY "h.png", ASSET_DIRECTORY"grass.bmp", ASSET_DIRECTORY"rock.bmp");
     pTerrain->width(TERRAIN_SCALE);
     pTerrain->depth(TERRAIN_SCALE);
     pTerrain->height(TERRAIN_SCALE);
