@@ -10,8 +10,6 @@ Vector unitVecPosX = Vector(1, 0, 0);
 Glider::Glider(Vector spawnPosition)
 {
     this->spawnPosition = spawnPosition;
-    this->flyPower = 1;
-    this->rotationPower = 1;
     this->rotLeftRight = 0;
     this->rotUpDown = 0;
 }
@@ -44,16 +42,13 @@ void Glider::crash()
 /// <summary>
 ///     Wird aufgerufen, wenn sich der Gleiter in einem Aufwind befindet.
 /// </summary>
-float k = 0;
 void Glider::upwind(float dtime, Vector windPos)
 {
     float phi = acos(Transform.forward().normalize().dot(unitVecPosZ));
 
 
     float distance = (windPos - this->transform().translation()).length();
-    float lift = 100 / distance;
-
-
+    float lift = 1000 / (distance * distance);
 
 
     Matrix MT, RT;
@@ -156,7 +151,9 @@ void Glider::calcNextMovment() {
     {
         omega *= -1;
     }
-
+    if (omega < 00.1 && omega > -00.1) {
+        omega = 0;
+    }
 
     velocity = velocity - phi * std::abs(phi) / 50;
     if (velocity < -1) {
@@ -170,15 +167,15 @@ void Glider::calcNextMovment() {
         pitch = 0;
     }
     else {
-        pitch = 1 / (abs(velocity) * 10);
+        pitch = 1 / ((abs(velocity)+1) * 10);
     }
 
 
     std::cout << velocity << "|" << pitch <<  "|" << phi << "|" << omega << std::endl;
 
-    this->nextPos = Transform.forward() * velocity  + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
-    this->nextRotX = (this->rotUpDown / 5) + pitch;
-    this->nextRotZ = this->rotLeftRight - ((omega * abs(omega) / 2));
+    this->nextPos =  Transform.forward() * velocity  + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
+    this->nextRotX =  (this->rotUpDown / 5) + pitch;
+    this->nextRotZ = this->rotLeftRight - ((omega * abs(omega))  / 4);
     
 }
 

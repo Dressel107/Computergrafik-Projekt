@@ -43,8 +43,8 @@ const int WIND_TURBINES_COUNT = 40;
 const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 2;
 const int MAX_SPAWN_Y = 12;
-const int TERRAIN_SCALE = 10;
-Vector playerSpawnPosition(0, 10, -10);
+const int TERRAIN_SCALE = 50;
+Vector playerSpawnPosition(0, 120, -10);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -74,6 +74,10 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     pModel->shader(new PhongShader(), true);
     Models.push_back(pModel);
 
+    Matrix MS;
+    MS.scale(5);
+    pModel->transform(MS);
+
     // Terrain laden
     pTerrain = new Terrain();
     TerrainShader* pTerrainShader = new TerrainShader(ASSET_DIRECTORY);
@@ -99,14 +103,15 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     
 
     //Dynamische Objekte spawnen
-    //spawnDynamicObjects();
+    spawnDynamicObjects();
 
-    pPhongShader = new PhongShader();
-    Wind* wind = new Wind(Vector(0,0,0));
-    wind->shader(pPhongShader, true);
-    wind->loadModel(ASSET_DIRECTORY "upwind.dae");
-    Models.push_back(wind);
-    Winds.push_back(wind);
+    //for Upwind testing
+    //pPhongShader = new PhongShader();
+    //Wind* wind = new Wind(Vector(0,0,0));
+    //wind->shader(pPhongShader, true);
+    //wind->loadModel(ASSET_DIRECTORY "upwind.dae");
+    //Models.push_back(wind);
+    //Winds.push_back(wind);
 
     //drawText("Geschwindigkeit", 10, 10);
 }
@@ -206,11 +211,9 @@ void Application::update(float dtime)
     }
 
     // Gleiter navigieren
-    //glider->navigateForTesting(forwardBackward, upDown, leftRight);
     glider->navigate(upDown, leftRight);
 
     // Objekte aktualisieren
-    glider->update(dtime);
     lockCamToModel(Cam, glider);
 
     updateObjects(dtime);
@@ -333,6 +336,8 @@ void Application::handleObjectCollisions()
 {
     AABB bb = this->glider->boundingBox();
 
+
+
     //for (int i = 0; i < Capsules.size(); i++)
     //{
     //    Capsule* capsule = Capsules.[i];
@@ -401,6 +406,7 @@ void Application::handleUpwindsCollisions(float dtime)
 /// </summary>
 void Application::updateObjects(float dtime)
 {
+    glider->update(dtime);
 
     for each (Sphere* sphere in Spheres)
     {
