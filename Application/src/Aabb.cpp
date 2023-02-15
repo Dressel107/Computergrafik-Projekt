@@ -64,3 +64,31 @@ void AABB::translate(Vector position)
     Max = SpawnMax + position;
 }
 
+void AABB::transform(Matrix matrix)
+{
+    Min = matrix * SpawnMin;
+    Max = matrix * SpawnMax;
+
+    // Prüfen, ob Min und Max richtig angeordnet sind
+    if (Min.X > Max.X)
+    {
+        float temp = Min.X;
+        Min.X = Max.X;
+        Max.X = temp;
+    }
+
+    if (Min.Y > Max.Y)
+    {
+        float temp = Min.Y;
+        Min.Y = Max.Y;
+        Max.Y = temp;
+    }
+
+    if (Min.Z > Max.Z)
+    {
+        float temp = Min.Z;
+        Min.Z = Max.Z;
+        Max.Z = temp;
+    }
+}
+

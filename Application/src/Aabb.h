@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "vector.h"
+#include "Matrix.h"
 
 class AABB
 {
@@ -26,6 +27,7 @@ public:
     bool intersectWith(Vector v);
     bool intersectWith(AABB aabb);
     void translate(Vector position);
+    void transform(Matrix matrix);
 };
 
 

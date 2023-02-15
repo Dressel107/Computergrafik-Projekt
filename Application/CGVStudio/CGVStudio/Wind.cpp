@@ -17,6 +17,9 @@ bool Wind::loadModel(const char* file)
     this->wind = new Model(file, false);
     this->wind->shader(shader());
 
+    // BoundingBox künstlich erhöhen
+    this->wind->BoundingBox.Max.Y = this->wind->BoundingBox.Max.Y + 100;
+
     // BoundingBox aktualisieren
     this->wind->BoundingBox.translate(spawnPosition);
 
@@ -35,7 +38,7 @@ void Wind::update(float dtime)
     wind->transform(TM * RM);
 
     // BoundingBox aktualisieren
-    wind->BoundingBox.translate(spawnPosition);
+    wind->BoundingBox.transform(wind->transform());
 }
 
 void Wind::draw(const BaseCamera& Cam)

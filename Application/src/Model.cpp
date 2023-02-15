@@ -187,34 +187,35 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
     Box.Max.Y = std::numeric_limits<float>::min();
     Box.Max.Z = std::numeric_limits<float>::min();
 
-    // Den kleinsten und größten Punkt suchen
+    // Den kleinsten und größten Punkt 
     for (int i = 0; i < pScene->mNumMeshes; i++) 
     {
         for (int j = 0; j < pScene->mMeshes[i]->mNumVertices; j++) 
         {
+            // Die Y- und Z-Achse vertauschen, da Blender die Achsen andersherum verwendet als hier im Projekt
             if (pScene->mMeshes[i]->mVertices[j].x < Box.Min.X)
             {
                 Box.Min.X = pScene->mMeshes[i]->mVertices[j].x;
             }
-            if (pScene->mMeshes[i]->mVertices[j].y < Box.Min.Y)
+            if (pScene->mMeshes[i]->mVertices[j].y < Box.Min.Z)
             {
-                Box.Min.Y = pScene->mMeshes[i]->mVertices[j].y;
+                Box.Min.Z = pScene->mMeshes[i]->mVertices[j].y;
             }
-            if (pScene->mMeshes[i]->mVertices[j].z < Box.Min.Z) 
+            if (pScene->mMeshes[i]->mVertices[j].z < Box.Min.Y) 
             {
-                Box.Min.Z = pScene->mMeshes[i]->mVertices[j].z;
+                Box.Min.Y = pScene->mMeshes[i]->mVertices[j].z;
             }
             if (pScene->mMeshes[i]->mVertices[j].x > Box.Max.X) 
             {
                 Box.Max.X = pScene->mMeshes[i]->mVertices[j].x;
             }
-            if (pScene->mMeshes[i]->mVertices[j].y > Box.Max.Y) 
+            if (pScene->mMeshes[i]->mVertices[j].y > Box.Max.Z) 
             {
-                Box.Max.Y = pScene->mMeshes[i]->mVertices[j].y;
+                Box.Max.Z = pScene->mMeshes[i]->mVertices[j].y;
             }
-            if (pScene->mMeshes[i]->mVertices[j].z > Box.Max.Z) 
+            if (pScene->mMeshes[i]->mVertices[j].z > Box.Max.Y) 
             {
-                Box.Max.Z = pScene->mMeshes[i]->mVertices[j].z;
+                Box.Max.Y = pScene->mMeshes[i]->mVertices[j].z;
             }
         }
     }

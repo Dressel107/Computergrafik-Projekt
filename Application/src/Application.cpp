@@ -37,13 +37,13 @@
 double oldMousePosX = 0;
 double oldMousePosY = 0;
 const int SPHERES_COUNT = 60;
-const int CAPSULES_COUNT = 20;
+const int CAPSULES_COUNT = 30;
 const int UPWINDS_COUNT = 10;
 const int WIND_TURBINES_COUNT = 40;
 const int BUSHES_COUNT = 60;
-const int WOODS_COUNT = 2;
+const int WOODS_COUNT = 4;
 const int MAX_SPAWN_Y = 12;
-const int TERRAIN_SCALE = 10;
+const int TERRAIN_SCALE = 40;
 Vector playerSpawnPosition(2, 28, -80);
 
 //Normale sicht
@@ -73,6 +73,9 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
     pModel->shader(new PhongShader(), true);
     Models.push_back(pModel);
+    Matrix MT;
+    MT.scale(2);
+    pModel->transform(MT);
 
     // Terrain laden
     pTerrain = new Terrain();
@@ -292,24 +295,86 @@ void Application::spawnDynamicObjects()
 
 void Application::handleTerrainCollision()
 {
+    AABB bb = glider->boundingBox();
+
+    // Version 1
     for (int x = 1; x < pTerrain->imgWidth; x+=4) 
     {
         for (int y = 1; y < pTerrain->imgHeight; y+=4)
         {
             Vector v = (pTerrain->tmpVertices[(y) * pTerrain->imgWidth + (x)]) * TERRAIN_SCALE;
-            AABB bb = glider->boundingBox();
 
             // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
             if (bb.intersectWith(v))
             {
-                glider->crash();
-                
+                glider->crash();                
             }
         }
     }
 
-    // Version 2
+    // Version 3
+    int minIndexX = bb.Min.X / TERRAIN_SCALE;
 
+    // Version 2
+    //int minX = 0;
+    //int minZ = 0;
+    //int maxX = (pTerrain->imgWidth * TERRAIN_SCALE) / 2;
+    //int maxZ = (pTerrain->imgHeight * TERRAIN_SCALE) / 2;
+    //int checksCount = 0;
+
+    //while (checksCount != 4)
+    //{
+    //    if (bb.Min.X > minX && bb.Max.X < maxX)
+    //    {
+    //        maxZ = maxZ / 2;
+
+    //        if (bb.Min.Z > minZ && bb.Max.Z < maxZ)
+    //        {
+    //            maxZ = maxZ / 2;
+    //            maxX = maxX / 2;
+    //        }
+    //        else
+    //        {
+
+    //        }
+    //    }
+    //    else
+    //    {
+
+    //    }
+
+    //    for (int x = minX; x < maxX; x++)
+    //    {
+    //        for (int y = minZ; y < maxZ; y++)
+    //        {
+    //            if ()
+
+    //            Vector v = (pTerrain->tmpVertices[(y)*pTerrain->imgWidth + (x)]) * TERRAIN_SCALE;
+
+    //            // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
+    //            if (bb.intersectWith(v))
+    //            {
+    //                glider->crash();
+    //            }
+    //        }
+    //    }
+
+    //    checksCount++;
+    //}
+
+    //for (int x = 1; x < pTerrain->imgWidth; x += 4)
+    //{
+    //    for (int y = 1; y < pTerrain->imgHeight; y += 4)
+    //    {
+    //        Vector v = (pTerrain->tmpVertices[(y)*pTerrain->imgWidth + (x)]) * TERRAIN_SCALE;
+    //        
+    //        // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
+    //        if (bb.intersectWith(v))
+    //        {
+    //            glider->crash();
+    //        }
+    //    }
+    //}
 }
 
 /// <summary>
@@ -413,16 +478,30 @@ void Application::updateObjects(float dtime)
     }
 
     bool firstWoodMoved = false;
+    bool secondMoved = false;
+    bool thirdMoved = false;
     for each (Decoration* decoration in Decorations)
     {
-        if (firstWoodMoved)
+        if (firstWoodMoved == false)
         {
             decoration->setPos(glider->boundingBox().Min);
+            firstWoodMoved = true;
+        }
+        else if (secondMoved == false)
+        {
+            decoration->setPos(glider->boundingBox().Max);
+            secondMoved = true;
+        }
+        else if (thirdMoved == false)
+        {
+            Vector negateMin = -glider->boundingBox().Min;
+            decoration->setPos(negateMin);
+            thirdMoved = true;
         }
         else
         {
-            decoration->setPos(glider->boundingBox().Max);
-            firstWoodMoved = true;
+            Vector negateMax = -glider->boundingBox().Max;
+            decoration->setPos(negateMax);
         }
 
         decoration->update(dtime);

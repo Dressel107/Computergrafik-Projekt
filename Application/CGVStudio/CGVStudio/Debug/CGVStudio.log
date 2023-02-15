@@ -1,3 +1,6 @@
-﻿  WindTurbine.cpp
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\WindTurbine.cpp(29,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+﻿  Capsule.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Capsule.cpp(30,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+  Wind.cpp
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Wind.cpp(31,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+  Code wird generiert...
   CGVStudio.vcxproj -> C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe

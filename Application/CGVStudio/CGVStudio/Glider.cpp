@@ -94,7 +94,8 @@ Vector Glider::update(float dtime)
     glider->transform(this->Transform);
 
     // BoundingBox aktualisieren
-    this->glider->BoundingBox.translate(this->Transform.translation());
+    //this->glider->BoundingBox.translate(this->Transform.translation());
+    this->glider->BoundingBox.transform(this->Transform);
 
     return this->Transform.translation();
 }
