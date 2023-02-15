@@ -12,11 +12,12 @@ public:
 
     virtual void draw(const BaseCamera& Cam);
     const AABB& boundingBox() const { return glider->boundingBox(); }
-    void upwind();
+    void upwind(float dtime, Vector windPos);
     void crash();
     void navigate(float UpDown, float LeftRight);
     void navigateForTesting(float forwardBackward, float UpDown, float LeftRight);
     void startGlider() { start = true; };
+    void reset();
 protected:
     Model* glider;
     Vector spawnPosition;
@@ -30,7 +31,8 @@ protected:
     float rotationPower;
     
     Vector nextPos;
-    float nextRot;
+    float nextRotX;
+    float nextRotZ;
     void calcNextMovment();
     bool start = false;
     bool isCrashed = false;

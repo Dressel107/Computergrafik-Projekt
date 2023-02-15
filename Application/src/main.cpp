@@ -82,8 +82,6 @@ int main (int argc, char** argv)
     //ImGui_ImplGlfw_InitForOpenGL(window, true);
     //ImGui_ImplOpenGL3_Init(glsl_version);
     float LastFrametime = 0;
-
-    
     {
         Application App(window);
         App.start();
