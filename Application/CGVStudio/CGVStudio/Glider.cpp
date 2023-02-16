@@ -45,6 +45,7 @@ void Glider::crash()
 
 void Glider::upwind(float dtime, Vector windPos)
 {
+	std::cout << glfwGetTime() << std::endl;
 	this->isInWind = true;
 	this->currentWind = windPos;
 	//float distance = (this->transform().translation().Y - windPos.Y);
@@ -185,26 +186,27 @@ void Glider::calcNextMovment()
 	//float liftKoe = 1;
 	if (this->isInWind)
 	{
-		if (x == 0) {
-			x = 10 * cos(distance * 0.05) + 10;
-			tmp = distance;
-		}
+	//	if (x == 0) {
+	//		x = 10 * cos(distance * 0.05) + 10;
+	//		tmp = distance;
+	//	}
 
-
-
-
-	}
-	if (x != 0) {
-		x = 10 * cos((tmp) * 0.05) + 10;
-		tmp = tmp + 0.1;
-		//if (x < 1) {
-		//	x = 0;
-		//}
+	//}
+	//if (x != 0) {
+	//	x = 10 * cos((tmp) * 0.05) + 10;
+	//	tmp = tmp + 0.5;
+	//	if (x <= 0.1) {
+	//		x = 0;
+	//		std::cout << "Heeeee" << std::endl;
+	//	}
 
 	}
+	lift = 1000 / distance;
 
-	lift = x * 10;
-	std::cout << x << "|" << distance << std::endl;
+
+	//lift = sqrt(x) * 10;
+
+	//std::cout << x << "|" << distance << std::endl;
 	
 
 

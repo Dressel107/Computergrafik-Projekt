@@ -1,7 +1,4 @@
 ﻿  Glider.cpp
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(171,23): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(172,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(189,34): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(198,30): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(199,13): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(172,23): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
+C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\CGVStudio\Glider.cpp(173,28): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
   CGVStudio.vcxproj -> C:\Users\Dresselhaus\Documents\GitHub\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe
