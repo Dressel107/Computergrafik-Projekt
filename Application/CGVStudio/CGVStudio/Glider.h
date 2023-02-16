@@ -36,4 +36,10 @@ protected:
     void calcNextMovment();
     bool start = false;
     bool isCrashed = false;
+
+    bool isInWind = false;
+    Vector currentWind;
+
+    //void rek(float x, float distance);
+
 };

@@ -18,7 +18,7 @@ bool Wind::loadModel(const char* file)
     this->wind->shader(shader());
 
     // BoundingBox künstlich erhöhen
-    this->wind->BoundingBox.Max.Y = this->wind->BoundingBox.Max.Y + 100;
+    //this->wind->BoundingBox.Max.Y = this->wind->BoundingBox.Max.Y + 100;
 
     // BoundingBox aktualisieren
     this->wind->BoundingBox.translate(spawnPosition);
