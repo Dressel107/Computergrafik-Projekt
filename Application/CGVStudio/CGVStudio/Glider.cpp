@@ -7,9 +7,12 @@ Vector unitVecNegY = Vector(0, -1, 0);
 Vector unitVecPosY = Vector(0, 1, 0);
 
 Vector unitVecPosZ = Vector(0, 0, 1);
+
 Vector unitVecPosX = Vector(1, 0, 0);
 Vector unitVecNegX = Vector(-1, 0, 0);
 
+const float maxVelocity = 15;
+const float minVelocity = -1;
 
 
 Glider::Glider(Vector spawnPosition)
@@ -58,25 +61,6 @@ void Glider::upwind(float dtime, Wind* wind)
 	
 }
 
-//void Glider::rek(float x, float distance) {
-//    if (x == 0) {
-//        x = 10 * cos(distance * 0.05) + 10;
-//        tmp = distance;
-//    }
-//    else {
-//        x = 10 * cos((tmp) * 0.05) + 10;
-//        tmp = tmp + 1;
-//
-//    }
-//
-//    if (x < 1) {
-//        x = 0;
-//        return;
-//    }
-//    else {
-//        rek(x, distance);
-//    }
-//}
 
 /// <summary>
 ///     Navigiert den Gleiter in eine bestimmte Richtung.
@@ -126,20 +110,11 @@ Vector Glider::update(float dtime)
 	glider->transform(this->Transform);
 
 	// BoundingBox aktualisieren
-	//this->glider->BoundingBox.translate(this->Transform.translation());
 	this->glider->BoundingBox.transform(this->Transform);
 
 
 	this->isInWind = false;
 	return this->Transform.translation();
-}
-
-
-
-void Glider::navigateForTesting(float forwardBackward, float UpDown, float LeftRight)
-{
-	//this->movingVector = Transform.right() * forwardBackward;
-
 }
 
 void Glider::draw(const BaseCamera& Cam)
@@ -150,75 +125,45 @@ void Glider::draw(const BaseCamera& Cam)
 
 
 
-float velocity = 5;
-//float lift = 0.000111788491;
-float lift = 0.1;
-
-float drag = 0.0000324;
-float weight = 0.9317522032;
-
+float velocity = 8;
 float pitch = 0;
 
-float x = 0;
-float tmp = 0;
+float lift = 0.1;
+float drag = 0.01;
+float weight = 0.9;
 
-//Bug: wenn omega ungefähr gleich ist wie phi
 //https://www.youtube.com/watch?v=uIgEwJVWVpY&t=368s&ab_channel=ChristopherScottVaughen
 void Glider::calcNextMovment()
 {
 	float distance = 0;
 
-
+	//Aufstoß im Wind, Stärk abhängig von Abstand zischen Gleiter und Windboden
 	if (this->currentWind != nullptr && this->currentWind->isActiv == false) {
 		 distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
 		 lift = 20000 / (distance * distance);
-		 //std::cout << lift << std::endl;
 		 this->currentWind->trigger();
 	}
 	else {
 		lift = 0.1;
 	}
 	
-	
-	float phi = acos(Transform.forward().normalize().dot(unitVecPosZ));
-
-	if (Transform.forward().normalize().Y < 0)
-	{
-		phi *= -1;
-	}
-
-	float omega = acos(Transform.right().normalize().dot(unitVecPosX));
-	float angle = 0;
-	//angle = std::min((float)(M_PI / 2), omega);
-	angle = atan2f(Transform.right().normalize().Y, Transform.right().normalize().X);
-
-	//if (Transform.right().normalize().Y < 0)
-	//{
-
-	//	angle *= -1;
-
-	//}
-
-	std::cout << angle << std::endl;
+	//Winkel zwischen Forward des Gleiters und Z-Achse
+	float phi = atan2f(Transform.forward().normalize().Y, Transform.forward().normalize().Z);
+	//Winkel zwischen Right des Gleiter und X-Achse
+	float omega = atan2f(Transform.right().normalize().Y, Transform.right().normalize().X);
 
 
-
-
-
+	//Beschleuning/Entschleuning 
 	if (phi > 0) {
 		velocity = velocity - phi * std::abs(phi) / 100;
 
 	}
 	else {
-		velocity = velocity - phi * std::abs(phi) / 5;
-	}
-	if (velocity < -1) {
-		velocity = -1;
-	}
-	if (velocity > 15) {
-		velocity = 15;
+		velocity = velocity - phi * std::abs(phi) / 50;
 	}
 
+
+	//Gleiter Neigen wenn er nicht senkrecht steht, Starken der Neigen ist von Geschwindigkeit abhängig
 	if (phi < -M_PI / 2 && phi > M_PI / 2) {
 		pitch = 0;
 	}
@@ -226,22 +171,21 @@ void Glider::calcNextMovment()
 		pitch = 1 / ((abs(velocity) + 1) * 5);
 	}
 
-	//std::cout << omega << std::endl;
+	//Velocity auf Min und Max beschranken
+	velocity = std::max(minVelocity, velocity);
+	velocity = std::min(maxVelocity, velocity);
 
+	//Abhänigkeit von RotUp-Rotations-Stärke und Omega -> Nach oben Neigen schwer, nachen unten Neigen leicht
+	float rotUpDownKoe = (1 + (abs(omega))) / 6;
 
-	//std::cout << velocity << "|" << pitch <<  "|" << phi << "|" << (omega * abs(omega)) << std::endl;
-
-	float rotUpDownKoe = (1 + (abs(omega))) / 6; //je größer abs(omega) desto kleiner
-
-
+	//Abhänigkeit von LeftRight Rotation und Oegma -> Gleiter wird immer wieder waagerecht
+	float rotLeftRightKoe = -(omega * abs(omega) / 4);
 
 	this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + unitVecPosY * lift + unitVecNegY * weight;
 	this->nextRotX = (this->rotUpDown * rotUpDownKoe) + pitch;
+	this->nextRotZ = (this->rotLeftRight + rotLeftRightKoe);
 
-	//this->nextRotZ = (this->rotLeftRight - (omega* abs(omega)));
-	this->nextRotZ = (this->rotLeftRight - (angle *abs(angle) / 4));
-
-
+	std::cout << velocity << "|" << pitch << "|" << phi << "|" << (omega * abs(omega)) << std::endl;
 }
 
 void Glider::reset() {
