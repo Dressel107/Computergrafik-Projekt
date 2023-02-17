@@ -460,8 +460,7 @@ void Application::handleUpwindsCollisions(float dtime)
     {
         if (bb.intersectWith(wind->boundingBox()))
         {
-            Vector windPos = wind->transform().translation();
-            this->glider->upwind( dtime, windPos);
+            this->glider->upwind( dtime, wind);
         }
     }
 }

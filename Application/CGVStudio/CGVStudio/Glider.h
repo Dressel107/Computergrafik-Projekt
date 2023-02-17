@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../../src/Camera.h"
 #include "../../src/Model.h"
+#include "Wind.h"
 
 class Glider : public BaseModel
 {
@@ -12,7 +13,7 @@ public:
 
     virtual void draw(const BaseCamera& Cam);
     const AABB& boundingBox() const { return glider->boundingBox(); }
-    void upwind(float dtime, Vector windPos);
+    void upwind(float dtime, Wind* wind);
     void crash();
     void navigate(float UpDown, float LeftRight);
     void navigateForTesting(float forwardBackward, float UpDown, float LeftRight);
@@ -38,7 +39,7 @@ protected:
     bool isCrashed = false;
 
     bool isInWind = false;
-    Vector currentWind;
+    Wind* currentWind;
 
     //void rek(float x, float distance);
 

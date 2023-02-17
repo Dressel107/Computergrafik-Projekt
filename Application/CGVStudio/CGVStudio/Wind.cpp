@@ -26,8 +26,15 @@ bool Wind::loadModel(const char* file)
     return true;
 }
 
+float timer = 0;
 void Wind::update(float dtime)
 {
+    if (timer == 0 || glfwGetTime() >= timer + 0.5) {
+        isActiv = true;
+    }
+
+    std::cout << isActiv << std::endl;
+
     currentRotation = currentRotation + (-2 * M_PI / 0.5 * dtime);
 
     Matrix TM;
@@ -44,4 +51,13 @@ void Wind::update(float dtime)
 void Wind::draw(const BaseCamera& Cam)
 {
     wind->draw(Cam);
+}
+
+void Wind::trigger()
+{
+    if (isActiv == true)
+    {
+        timer = glfwGetTime();
+        isActiv = false;
+    }
 }

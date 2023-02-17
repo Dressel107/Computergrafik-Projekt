@@ -12,6 +12,7 @@ Glider::Glider(Vector spawnPosition)
 	this->spawnPosition = spawnPosition;
 	this->rotLeftRight = 0;
 	this->rotUpDown = 0;
+	this->currentWind = nullptr;
 }
 Glider::~Glider()
 {
@@ -43,11 +44,14 @@ void Glider::crash()
 ///     Wird aufgerufen, wenn sich der Gleiter in einem Aufwind befindet.
 /// </summary>
 
-void Glider::upwind(float dtime, Vector windPos)
+void Glider::upwind(float dtime, Wind* wind)
 {
-	std::cout << glfwGetTime() << std::endl;
 	this->isInWind = true;
-	this->currentWind = windPos;
+	this->currentWind = wind;
+	wind->trigger();
+
+	
+
 	//float distance = (this->transform().translation().Y - windPos.Y);
 
 	//rek(x, distance);
@@ -167,7 +171,7 @@ void Glider::draw(const BaseCamera& Cam)
 
 float velocity = 5;
 //float lift = 0.000111788491;
-float lift = 1;
+float lift = 0.1;
 
 float drag = 0.0000324;
 float weight = 0.9317522032;
@@ -181,7 +185,16 @@ float tmp = 0;
 //https://www.youtube.com/watch?v=uIgEwJVWVpY&t=368s&ab_channel=ChristopherScottVaughen
 void Glider::calcNextMovment()
 {
-	float distance = (this->transform().translation().Y - this->currentWind.Y);
+	float distance = 0;
+
+	if (this->currentWind != nullptr && this->currentWind->isActiv == false) {
+		 distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
+		 lift = 1000 / distance;
+	}
+	else {
+		lift = 0.1;
+	}
+	
 
 	//float liftKoe = 1;
 	if (this->isInWind)
@@ -201,7 +214,6 @@ void Glider::calcNextMovment()
 	//	}
 
 	}
-	lift = 1000 / distance;
 
 
 	//lift = sqrt(x) * 10;
@@ -266,6 +278,11 @@ void Glider::reset() {
 	glider->transform(this->Transform);
 	velocity = 5;
 	pitch = 0;
+	lift = 0.1;
+
+	drag = 0.0000324;
+	weight = 0.9317522032;
+
 	this->glider->BoundingBox.translate(spawnPosition);
 }
 
