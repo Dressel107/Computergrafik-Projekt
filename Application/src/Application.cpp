@@ -110,7 +110,7 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
 
     //for Upwind testing
     pPhongShader = new PhongShader();
-    Wind* wind = new Wind(Vector(0,0,-30));
+    Wind* wind = new Wind(Vector(0,0,0));
     wind->shader(pPhongShader, true);
     wind->loadModel(ASSET_DIRECTORY "upwind.dae");
     Models.push_back(wind);

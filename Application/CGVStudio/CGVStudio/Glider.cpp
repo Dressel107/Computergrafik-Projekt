@@ -4,8 +4,13 @@
 
 
 Vector unitVecNegY = Vector(0, -1, 0);
+Vector unitVecPosY = Vector(0, 1, 0);
+
 Vector unitVecPosZ = Vector(0, 0, 1);
 Vector unitVecPosX = Vector(1, 0, 0);
+Vector unitVecNegX = Vector(-1, 0, 0);
+
+
 
 Glider::Glider(Vector spawnPosition)
 {
@@ -14,6 +19,7 @@ Glider::Glider(Vector spawnPosition)
 	this->rotUpDown = 0;
 	this->currentWind = nullptr;
 }
+
 Glider::~Glider()
 {
 	delete glider;
@@ -49,32 +55,7 @@ void Glider::upwind(float dtime, Wind* wind)
 	this->isInWind = true;
 	this->currentWind = wind;
 	wind->trigger();
-
 	
-
-	//float distance = (this->transform().translation().Y - windPos.Y);
-
-	//rek(x, distance);
-
-	//float lift = x ;
-
-	//std::cout << lift << "|" << distance << std::endl;
-
-
-
-	//Matrix TM, RT;
-	//Vector nextPos = Transform.up() * lift;
-	//TM.translation(nextPos * dtime);
-
-
-	//Rotation
-	//float phi = acos(Transform.forward().normalize().dot(unitVecPosZ));
-	//float nextRot = -((10 - (phi*phi)) / distance);
-	//RT.rotationX(nextRot * dtime);
-
-
-	//this->Transform = TM * this->Transform;
-
 }
 
 //void Glider::rek(float x, float distance) {
@@ -187,69 +168,55 @@ void Glider::calcNextMovment()
 {
 	float distance = 0;
 
+
 	if (this->currentWind != nullptr && this->currentWind->isActiv == false) {
 		 distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
-		 lift = 1000 / distance;
+		 lift = 20000 / (distance * distance);
+		 //std::cout << lift << std::endl;
+		 this->currentWind->trigger();
 	}
 	else {
 		lift = 0.1;
 	}
 	
-
-	//float liftKoe = 1;
-	if (this->isInWind)
-	{
-	//	if (x == 0) {
-	//		x = 10 * cos(distance * 0.05) + 10;
-	//		tmp = distance;
-	//	}
-
-	//}
-	//if (x != 0) {
-	//	x = 10 * cos((tmp) * 0.05) + 10;
-	//	tmp = tmp + 0.5;
-	//	if (x <= 0.1) {
-	//		x = 0;
-	//		std::cout << "Heeeee" << std::endl;
-	//	}
-
-	}
-
-
-	//lift = sqrt(x) * 10;
-
-	//std::cout << x << "|" << distance << std::endl;
 	
-
-
-
 	float phi = acos(Transform.forward().normalize().dot(unitVecPosZ));
+
 	if (Transform.forward().normalize().Y < 0)
 	{
 		phi *= -1;
 	}
 
 	float omega = acos(Transform.right().normalize().dot(unitVecPosX));
-	if (Transform.right().normalize().Y < 0)
-	{
-		omega *= -1;
-	}
-	if (omega < 0.1 && omega > -0.1) {
-		omega = 0;
-	}
+	float angle = 0;
+	//angle = std::min((float)(M_PI / 2), omega);
+	angle = atan2f(Transform.right().normalize().Y, Transform.right().normalize().X);
+
+	//if (Transform.right().normalize().Y < 0)
+	//{
+
+	//	angle *= -1;
+
+	//}
+
+	std::cout << angle << std::endl;
+
+
+
+
 
 	if (phi > 0) {
-		velocity = velocity - phi * std::abs(phi) / 50;
+		velocity = velocity - phi * std::abs(phi) / 100;
 
 	}
 	else {
-		velocity = velocity - phi * std::abs(phi) / 20;
+		velocity = velocity - phi * std::abs(phi) / 5;
 	}
 	if (velocity < -1) {
 		velocity = -1;
 	}
-	if (velocity > 12) {
-		velocity = 12;
+	if (velocity > 15) {
+		velocity = 15;
 	}
 
 	if (phi < -M_PI / 2 && phi > M_PI / 2) {
@@ -259,14 +226,21 @@ void Glider::calcNextMovment()
 		pitch = 1 / ((abs(velocity) + 1) * 5);
 	}
 
+	//std::cout << omega << std::endl;
 
-	// std::cout << velocity << "|" << pitch <<  "|" << phi << "|" << omega << std::endl;
+
+	//std::cout << velocity << "|" << pitch <<  "|" << phi << "|" << (omega * abs(omega)) << std::endl;
 
 	float rotUpDownKoe = (1 + (abs(omega))) / 6; //je größer abs(omega) desto kleiner
 
-	this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + Transform.up() * lift + unitVecNegY * weight;
+
+
+	this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + unitVecPosY * lift + unitVecNegY * weight;
 	this->nextRotX = (this->rotUpDown * rotUpDownKoe) + pitch;
-	this->nextRotZ = (this->rotLeftRight) - ((omega * abs(omega)) / 4);
+
+	//this->nextRotZ = (this->rotLeftRight - (omega* abs(omega)));
+	this->nextRotZ = (this->rotLeftRight - (angle *abs(angle) / 4));
+
 
 }
 

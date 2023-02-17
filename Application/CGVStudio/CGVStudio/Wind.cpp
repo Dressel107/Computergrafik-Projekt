@@ -2,6 +2,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+float upWindDuration = 2.0f; //In Sekunden
+
 Wind::Wind(Vector spawnPosition)
 {
     this->spawnPosition = spawnPosition;
@@ -29,11 +31,9 @@ bool Wind::loadModel(const char* file)
 float timer = 0;
 void Wind::update(float dtime)
 {
-    if (timer == 0 || glfwGetTime() >= timer + 0.5) {
+    if (timer == 0 || glfwGetTime() >= timer + upWindDuration) {
         isActiv = true;
     }
-
-    std::cout << isActiv << std::endl;
 
     currentRotation = currentRotation + (-2 * M_PI / 0.5 * dtime);
 
