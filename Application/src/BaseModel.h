@@ -24,11 +24,12 @@ public:
     void transform( const Matrix& m) { Transform = m; }
     virtual void shader( BaseShader* shader, bool deleteOnDestruction=false );
     virtual BaseShader* shader() const { return pShader; }
+
 protected:
     Matrix Transform;
-    BaseShader* pShader;
     bool DeleteShader;
-        
+    BaseShader* pShader;
+
 };
 
 

@@ -44,7 +44,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 4;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 40;
-Vector playerSpawnPosition(0, 40, -80);
+Vector playerSpawnPosition(0, 80, -80);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -56,30 +56,24 @@ int height = 0;
 bool isGameOver = false;
 int startTime = 0;
 
+BaseModel* pSkybox;
+
 Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
 {
     BaseModel* pModel;
     PhongShader* pPhongShader;
-    
-    // create LineGrid model with constant color shader
- //   pModel = new LinePlaneModel(10, 10, 10, 10);
- //   ConstantShader* pConstShader = new ConstantShader();
-	//pConstShader->color( Color(1,0,0));
- //   pModel->shader(pConstShader, true);
- //   // add to render list
- //   Models.push_back( pModel );
-    
-    // Skybox laden    
-    pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
-    pModel->shader(new PhongShader(), true);
-    Models.push_back(pModel);
-    Matrix MT;
-    MT.scale(2);
-    pModel->transform(MT);
+   
 
-    Matrix MS;
-    MS.scale(5);
-    pModel->transform(MS);
+    // Skybox laden    
+    pPhongShader = new PhongShader();
+    pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
+    pModel->shader(pPhongShader, true);
+    Models.push_back(pModel);
+
+
+
+    pSkybox = pModel;
+
 
     // Terrain laden
     pTerrain = new Terrain();
@@ -92,6 +86,9 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     pTerrain->height(TERRAIN_SCALE);
     pTerrain->setK(100);
     Models.push_back(pTerrain);
+
+    //pTerrainShader->lightColor(Color(255, 0, 0));
+    
         
     // Spieler (Gleiter) laden
     pPhongShader = new PhongShader();
@@ -99,6 +96,9 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     glider->shader(pPhongShader, true);
     glider->loadModel(ASSET_DIRECTORY "glider.dae");
     Models.push_back(glider);
+
+
+
 
     //Kameraeinstellungen
     this->camTM.translation(cameraPositionRelativToModel);
@@ -468,8 +468,14 @@ void Application::handleUpwindsCollisions(float dtime)
 /// <summary>
 ///     Aktualisiert die Positionen aller Objekte in der Szene.
 /// </summary>
+float currentRotation = 0;
 void Application::updateObjects(float dtime)
 {
+    currentRotation = currentRotation + (-2 * M_PI / 200 * dtime);
+    Matrix RM, SM;
+    RM.rotationY(currentRotation);
+    SM.scale(5);
+    pSkybox->transform(RM * SM);
     glider->update(dtime);
 
     for each (Sphere* sphere in Spheres)
