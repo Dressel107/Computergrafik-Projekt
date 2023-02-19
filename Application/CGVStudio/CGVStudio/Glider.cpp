@@ -53,12 +53,19 @@ void Glider::crash()
 ///     Wird aufgerufen, wenn sich der Gleiter in einem Aufwind befindet.
 /// </summary>
 
+float distance = 0;
+bool upwinded = false;
+
 void Glider::upwind(float dtime, Wind* wind)
 {
 	this->isInWind = true;
 	this->currentWind = wind;
+	if (this->currentWind->isActiv == true) {
+		distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
+		upwinded = true;
+	}
+
 	wind->trigger();
-	
 }
 
 
@@ -129,36 +136,50 @@ float lift = 0.1;
 float drag = 0.01;
 float weight = 0.9;
 
-float x = 0;
+float x = 1;
+
 
 //https://www.youtube.com/watch?v=uIgEwJVWVpY&t=368s&ab_channel=ChristopherScottVaughen
 void Glider::calcNextMovment()
 {
-	float distance = 0;
 	float accKoe = 1;
 
 	//Aufstoß im Wind, Stärk abhängig von Abstand zischen Gleiter und Windboden
-	if (this->currentWind != nullptr && this->currentWind->isActiv == false) {
-		 distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
-		 accKoe = 0.1 * distance;
-		 x = x + 0.1;
-		 lift = (accKoe * (cos(x + M_PI) + accKoe)) / 5;
+	//if (this->currentWind != nullptr && this->currentWind->isActiv == false) {
+	//	//distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
+	//	 //lift = 20000 / (distance * distance);
+	//	 //this->currentWind->trigger();
+	//}
+	//else {
+	//	lift = 0.1;
+	//}
 
-		 if (lift > -0.01 && lift < 0.01) {
-			 lift = 0;
-			 x = 0;
-			 this->currentWind = nullptr;
-		 }
+	//if (this->currentWind != nullptr && this->currentWind->isActiv == true) {
+	//	distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
+	//}
+	//else {
+	//	distance = 0;
+	//}
 
-		 //lift = 20000 / (distance * distance);
-		 //this->currentWind->trigger();
+	//accKoe = 0.1 * distance;
+	//x = x + 0.1;
+	//lift = (accKoe * (cos(x + M_PI) + accKoe)) / 5;
+
+	if (upwinded == true) {
+		accKoe =   (150/ distance);
+		x = x + 0.02;
+		lift = (accKoe * cos(x + M_PI) + accKoe);
+		if (lift > -0.01 && lift < 0.01) {
+			upwinded = false;
+			x = 0;
+			std::cout << "end" << std::endl;
+		}
 	}
-	else {
-		lift = 0.1;
-	}
+
 
 	
-	std::cout << x << "|" << lift << std::endl;
+	std::cout << accKoe << "|" << x << "|" << lift << std::endl;
+
 
 
 	//Winkel zwischen Forward des Gleiters und Z-Achse
@@ -213,9 +234,14 @@ void Glider::reset() {
 	velocity = 5;
 	pitch = 0;
 	lift = 0.1;
+	upwinded = false;
 
 	drag = 0.0000324;
 	weight = 0.9317522032;
+	if (this->currentWind != nullptr) {
+		this->currentWind->isActiv = true;
+	}
+	this->currentWind = nullptr;
 
 	this->glider->BoundingBox.translate(spawnPosition);
 }

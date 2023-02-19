@@ -2,7 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-float upWindDuration = 2.0f; //In Sekunden
+float upWindDuration = 20.0f; //In Sekunden
 
 Wind::Wind(Vector spawnPosition)
 {
@@ -44,7 +44,7 @@ void Wind::update(float dtime)
     RM.rotationY(currentRotation);
     wind->transform(TM * RM);
 
-    // BoundingBox aktualisieren
+    //BoundingBox aktualisieren
     wind->BoundingBox.transform(wind->transform());
 }
 
