@@ -11,7 +11,7 @@ Vector unitVecPosZ = Vector(0, 0, 1);
 Vector unitVecPosX = Vector(1, 0, 0);
 Vector unitVecNegX = Vector(-1, 0, 0);
 
-const float maxVelocity = 15;
+const float maxVelocity = 18;
 const float minVelocity = -1;
 
 
@@ -78,10 +78,7 @@ Vector Glider::update(float dtime)
 	// Wenn Gleiter gecrasht ist, auf Startposition zurücksetzen
 	if (this->isCrashed)
 	{
-		Matrix moveToSpawnPos;
-		moveToSpawnPos.translation(this->spawnPosition);
-
-		Transform = moveToSpawnPos;
+		this->reset();
 		this->isCrashed = false;
 	}
 	else
@@ -155,20 +152,22 @@ void Glider::calcNextMovment()
 
 	//Beschleuning/Entschleuning 
 	if (phi > 0) {
-		velocity = velocity - phi * std::abs(phi) / 100;
+		velocity = velocity - (phi ) / 50;//Nach oben fliegen
 
 	}
 	else {
-		velocity = velocity - phi * std::abs(phi) / 50;
+		velocity = (velocity - (((phi ) ) / 30));//Nach unten fliegen
+
 	}
 
 
-	//Gleiter Neigen wenn er nicht senkrecht steht, Starken der Neigen ist von Geschwindigkeit abhängig
 	if (phi < -M_PI / 2 && phi > M_PI / 2) {
 		pitch = 0;
 	}
 	else {
-		pitch = 1 / ((abs(velocity) + 1) * 5);
+		//pitch = 1 / ((abs(velocity) + 1) * 5);
+		pitch = 0.03*(15 - velocity);
+
 	}
 
 	//Velocity auf Min und Max beschranken
@@ -176,14 +175,14 @@ void Glider::calcNextMovment()
 	velocity = std::min(maxVelocity, velocity);
 
 	//Abhänigkeit von RotUp-Rotations-Stärke und Omega -> Nach oben Neigen schwer, nachen unten Neigen leicht
-	float rotUpDownKoe = (1 + (abs(omega))) / 6;
+	float rotUpDownKoe = (1 + (abs(omega))) / 4;
 
 	//Abhänigkeit von LeftRight Rotation und Oegma -> Gleiter wird immer wieder waagerecht
-	float rotLeftRightKoe = -(omega * abs(omega) / 4);
+	//float rotLeftRightKoe = -(omega * abs(omega) / 4);
 
 	this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + unitVecPosY * lift + unitVecNegY * weight;
 	this->nextRotX = (this->rotUpDown * rotUpDownKoe) + pitch;
-	this->nextRotZ = (this->rotLeftRight + rotLeftRightKoe);
+	this->nextRotZ = this->rotLeftRight;// +rotLeftRightKoe;
 
 	std::cout << velocity << "|" << pitch << "|" << phi << "|" << (omega * abs(omega)) << std::endl;
 }
