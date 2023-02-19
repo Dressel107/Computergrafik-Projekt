@@ -7,10 +7,10 @@ Terrain::Terrain(const char* HeightMap, const char* DetailMap1, const char* Deta
 {
     if(HeightMap && DetailMap1 && DetailMap2)
     {
-        bool loaded = load( HeightMap, DetailMap1, DetailMap2);
+        bool loaded = load( HeightMap, DetailMap1, DetailMap2, 1);
         if(!loaded)
             throw std::exception();
-    }
+    }   
 }
 
 Terrain::~Terrain()
@@ -33,11 +33,10 @@ Vector& Terrain::getVertex(int x, int y)
     return this->tmpVertices[y * this->imgWidth + x];
 }
 
-
-
-
-bool Terrain::load( const char* HeightMap, const char* DetailMap1, const char* DetailMap2)
+bool Terrain::load(const char* HeightMap, const char* DetailMap1, const char* DetailMap2, float terrainScaling)
 {
+    this->terrainScaling = terrainScaling;
+
     if( !HeightTex.load(HeightMap) )
         return false;
     if( !DetailTex[0].load(DetailMap1) )
@@ -116,8 +115,104 @@ bool Terrain::load( const char* HeightMap, const char* DetailMap1, const char* D
         IB.addIndex(i + imgHeight + 1);
     }
     IB.end();
+
+    // TerrainAreas erzeugen
+    // (Für Kollisionserkennung)
+    int areaCount = 0;
+    for (int i = 0; i < areasPerAxis; i++)
+    {
+        for (int j = 0; j < areasPerAxis; j++)
+        {
+            TerrainArea area;
+            area.vertices = new Vector[(imgWidth / areasPerAxis) * (imgHeight / areasPerAxis)];
+
+            // Defaultwerte setzen
+            area.boundingbox.Min.X = 1000000;
+            area.boundingbox.Min.Y = 1000000;
+            area.boundingbox.Min.Z = 1000000;
+            area.boundingbox.Max.X = -1000000;
+            area.boundingbox.Max.Y = -1000000;
+            area.boundingbox.Max.Z = -1000000;
+
+            int vertexCount = 0;
+
+            // BoundingBoxen um TerrainBereiche lege
+            for (int x = (imgWidth / areasPerAxis) * i; x < (imgWidth / areasPerAxis) * (i + 1); x++)
+            {
+                for (int y = (imgWidth / areasPerAxis) * j; y < (imgHeight / areasPerAxis) * (j + 1); y++)
+                {
+                    Vector v = tmpVertices[(y)*imgWidth + (x)];
+                    v = v * this->terrainScaling;
+
+                    area.vertices[vertexCount] = v;
+                    vertexCount++;
+
+                    // X
+                    if (v.X < area.boundingbox.Min.X)
+                    {
+                        area.boundingbox.Min.X = v.X;
+                    }
+                    if (v.X > area.boundingbox.Max.X)
+                    {
+                        area.boundingbox.Max.X = v.X;
+                    }
+
+                    // Y
+                    if (v.Y < area.boundingbox.Min.Y)
+                    {
+                        area.boundingbox.Min.Y = v.Y;
+                    }
+                    if (v.Y > area.boundingbox.Max.Y)
+                    {
+                        area.boundingbox.Max.Y = v.Y;
+                    }
+
+                    // Z
+                    if (v.Z < area.boundingbox.Min.Z)
+                    {
+                        area.boundingbox.Min.Z = v.Z;
+                    }
+                    if (v.Z > area.boundingbox.Max.Z)
+                    {
+                        area.boundingbox.Max.Z = v.Z;
+                    }
+                }
+            }
+
+            this->areas[areaCount] = area;
+            areaCount++;
+        }
+    }
     
     return true;
+}
+
+/// <summary>
+///     Prüft, ob die übergebene AABB das Terrain berührt.
+/// </summary>
+bool Terrain::intersectWith(AABB aabb)
+{
+    for (int i = 0; i < areasCount; i++)
+    {
+        TerrainArea area = areas[i];
+
+        // Prüfen, ob die AABB einen Terrainbereich berührt
+        if (area.boundingbox.intersectWith(aabb))
+        {
+            // Alle Vertices des Terrainbereichs prüfen
+            for (int x = 0; x < (imgWidth / areasPerAxis) * (imgHeight / areasPerAxis); x++)
+            {
+                Vector v = area.vertices[x];
+
+                if (aabb.intersectWith(v))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 

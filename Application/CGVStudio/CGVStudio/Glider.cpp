@@ -131,7 +131,7 @@ void Glider::draw(const BaseCamera& Cam)
 
 
 
-float velocity = 3;
+float velocity = 300;
 float lift = 0.000111788491;
 float drag = 0.0000324;
 float weight = 0.9317522032;
@@ -172,9 +172,9 @@ void Glider::calcNextMovment() {
     }
 
 
-    std::cout << velocity << "|" << pitch <<  "|" << phi << "|" << omega << std::endl;
+    //std::cout << velocity << "|" << pitch <<  "|" << phi << "|" << omega << std::endl;
 
-    this->nextPos =  Transform.forward() * velocity  + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
+    this->nextPos =  Transform.forward() * 2.5 * velocity  + Transform.backward() * drag + Transform.up() * lift +  unitVecNegY * weight;
     this->nextRotX =  (this->rotUpDown / 5) + pitch;
     this->nextRotZ = this->rotLeftRight - ((omega * abs(omega))  / 4);
     

@@ -4,8 +4,7 @@ C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Appl
 C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(212,51): warning C4305: "Argument": Verkürzung von "double" in "float"
 C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(213,54): warning C4305: "Argument": Verkürzung von "double" in "float"
 C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(237,15): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(333,19): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(571,72): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(589,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
-C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(589,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(478,76): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(485,22): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
+C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\src\Application.cpp(485,19): warning C4244: "Argument": Konvertierung von "float" in "GLint", möglicher Datenverlust
   CGVStudio.vcxproj -> C:\Users\simon\Documents\Visual Studio 2022\Projects\Computergrafik-Projekt\Application\CGVStudio\Debug\CGVStudio.exe

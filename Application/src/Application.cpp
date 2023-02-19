@@ -43,8 +43,8 @@ const int WIND_TURBINES_COUNT = 40;
 const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 4;
 const int MAX_SPAWN_Y = 12;
-const int TERRAIN_SCALE = 40;
-Vector playerSpawnPosition(2, 28, -80);
+const int TERRAIN_SCALING = 40;
+Vector playerSpawnPosition(2, 100, -120);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -86,10 +86,10 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     TerrainShader* pTerrainShader = new TerrainShader(ASSET_DIRECTORY);
     pTerrainShader->diffuseTexture(Texture::LoadShared(ASSET_DIRECTORY "grass.bmp"));
     pTerrain->shader(pTerrainShader, true);
-    pTerrain->load(ASSET_DIRECTORY "heightmap2.png", ASSET_DIRECTORY"grass.bmp", ASSET_DIRECTORY"rock.bmp");
-    pTerrain->width(TERRAIN_SCALE);
-    pTerrain->depth(TERRAIN_SCALE);
-    pTerrain->height(TERRAIN_SCALE);
+    pTerrain->load(ASSET_DIRECTORY "heightmap2.png", ASSET_DIRECTORY"grass.bmp", ASSET_DIRECTORY"rock.bmp", TERRAIN_SCALING);
+    pTerrain->width(TERRAIN_SCALING);
+    pTerrain->depth(TERRAIN_SCALING);
+    pTerrain->height(TERRAIN_SCALING);
     pTerrain->setK(100);
     Models.push_back(pTerrain);
         
@@ -310,88 +310,17 @@ void Application::spawnDynamicObjects()
     }
 }
 
+/// <summary>
+///     Prüft, ob der Gleiter das Terrain berührt.
+/// </summary>
 void Application::handleTerrainCollision()
 {
-    AABB bb = glider->boundingBox();
+    bool intersect = this->pTerrain->intersectWith(this->glider->boundingBox());
 
-    // Version 1
-    for (int x = 1; x < pTerrain->imgWidth; x+=4) 
+    if (intersect)
     {
-        for (int y = 1; y < pTerrain->imgHeight; y+=4)
-        {
-            Vector v = (pTerrain->tmpVertices[(y) * pTerrain->imgWidth + (x)]) * TERRAIN_SCALE;
-
-            // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
-            if (bb.intersectWith(v))
-            {
-                glider->crash();                
-            }
-        }
+        this->glider->crash();
     }
-
-    // Version 3
-    int minIndexX = bb.Min.X / TERRAIN_SCALE;
-
-    // Version 2
-    //int minX = 0;
-    //int minZ = 0;
-    //int maxX = (pTerrain->imgWidth * TERRAIN_SCALE) / 2;
-    //int maxZ = (pTerrain->imgHeight * TERRAIN_SCALE) / 2;
-    //int checksCount = 0;
-
-    //while (checksCount != 4)
-    //{
-    //    if (bb.Min.X > minX && bb.Max.X < maxX)
-    //    {
-    //        maxZ = maxZ / 2;
-
-    //        if (bb.Min.Z > minZ && bb.Max.Z < maxZ)
-    //        {
-    //            maxZ = maxZ / 2;
-    //            maxX = maxX / 2;
-    //        }
-    //        else
-    //        {
-
-    //        }
-    //    }
-    //    else
-    //    {
-
-    //    }
-
-    //    for (int x = minX; x < maxX; x++)
-    //    {
-    //        for (int y = minZ; y < maxZ; y++)
-    //        {
-    //            if ()
-
-    //            Vector v = (pTerrain->tmpVertices[(y)*pTerrain->imgWidth + (x)]) * TERRAIN_SCALE;
-
-    //            // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
-    //            if (bb.intersectWith(v))
-    //            {
-    //                glider->crash();
-    //            }
-    //        }
-    //    }
-
-    //    checksCount++;
-    //}
-
-    //for (int x = 1; x < pTerrain->imgWidth; x += 4)
-    //{
-    //    for (int y = 1; y < pTerrain->imgHeight; y += 4)
-    //    {
-    //        Vector v = (pTerrain->tmpVertices[(y)*pTerrain->imgWidth + (x)]) * TERRAIN_SCALE;
-    //        
-    //        // Wenn sich die BoundingBox des Gleiters mit einem Vertex schneidet, hat der Spieler das Terrain berührt
-    //        if (bb.intersectWith(v))
-    //        {
-    //            glider->crash();
-    //        }
-    //    }
-    //}
 }
 
 /// <summary>
@@ -498,33 +427,8 @@ void Application::updateObjects(float dtime)
         turbine->update(dtime);
     }
 
-    bool firstWoodMoved = false;
-    bool secondMoved = false;
-    bool thirdMoved = false;
     for each (Decoration* decoration in Decorations)
     {
-        if (firstWoodMoved == false)
-        {
-            decoration->setPos(glider->boundingBox().Min);
-            firstWoodMoved = true;
-        }
-        else if (secondMoved == false)
-        {
-            decoration->setPos(glider->boundingBox().Max);
-            secondMoved = true;
-        }
-        else if (thirdMoved == false)
-        {
-            Vector negateMin = -glider->boundingBox().Min;
-            decoration->setPos(negateMin);
-            thirdMoved = true;
-        }
-        else
-        {
-            Vector negateMax = -glider->boundingBox().Max;
-            decoration->setPos(negateMax);
-        }
-
         decoration->update(dtime);
     }
 }
@@ -557,29 +461,21 @@ Vector Application::getRandomSpawnPosition()
     int indexX = rand() % pTerrain->imgWidth;
     int indexZ = rand() % pTerrain->imgHeight;
     Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
-    float y = vertex.Y + (rand() % MAX_SPAWN_Y);
+    float y = (vertex.Y * TERRAIN_SCALING) + (rand() % MAX_SPAWN_Y);
 
-    return Vector(vertex.X * TERRAIN_SCALE, y * TERRAIN_SCALE, vertex.Z * TERRAIN_SCALE);
+    return Vector(vertex.X * TERRAIN_SCALING, y, vertex.Z * TERRAIN_SCALING);
 }
 
+/// <summary>
+///     Gibt eine zuällige Position auf dem Terrain für ein Objekt zurück.
+/// </summary>
 Vector Application::getRandomSpawnPositionOnTerrain()
 {
     int indexX = rand() % pTerrain->imgWidth;
     int indexZ = rand() % pTerrain->imgHeight;
     Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
 
-    return Vector(vertex.X * TERRAIN_SCALE, (vertex.Y * TERRAIN_SCALE) - 0.1, vertex.Z * TERRAIN_SCALE);
-}
-
-float Application::getRandomValue(float min, float max)
-{
-    if (min < 0)
-    {
-        min = -min;
-    }
-
-    float scale = rand() / (float)RAND_MAX; /* [0, 1.0] */
-    return -min + scale * (max - -min);      /* [min, max] */
+    return Vector(vertex.X * TERRAIN_SCALING, (vertex.Y * TERRAIN_SCALING) - 0.1, vertex.Z * TERRAIN_SCALING);
 }
 
 void Application::drawText(const char* text, float x, float y) 

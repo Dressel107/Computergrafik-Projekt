@@ -69,7 +69,6 @@ protected:
     void restartGame();
     Vector getRandomSpawnPosition();
     Vector getRandomSpawnPositionOnTerrain();
-    float getRandomValue(float min, float max);
     void drawText(const char* text, float x, float y);
     void lockCamToModel(Camera& cam, BaseModel* model);
 };

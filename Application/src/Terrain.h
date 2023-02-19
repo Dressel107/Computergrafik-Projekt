@@ -6,6 +6,8 @@
 #include "texture.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
+#include "Aabb.h"
+#include "../CGVStudio/CGVStudio/TerrainArea.h"
 
 class Terrain : public BaseModel
 {
@@ -14,11 +16,9 @@ private:
     Vector& getVertex(int x, int y);
 
 public:
-
-
     Terrain(const char* HeightMap=NULL, const char* DetailMap1=NULL, const char* DetailMap2=NULL);
     virtual ~Terrain();
-    bool load( const char* HeightMap, const char* DetailMap1, const char* DetailMap2);
+    bool load(const char* HeightMap, const char* DetailMap1, const char* DetailMap2, float terrainScaling);
 
     virtual void shader( BaseShader* shader, bool deleteOnDestruction=false );
     virtual void draw(const BaseCamera& Cam);
@@ -40,6 +40,8 @@ public:
 
     void setK(int kValue) { k = kValue; }
 
+    bool intersectWith(AABB aabb);
+
     Vector* tmpVertices;
     int imgWidth;
     int imgHeight;
@@ -53,8 +55,11 @@ protected:
     Texture HeightTex;
     Vector Size;
     int k;
+    float terrainScaling;
 
-
+    const int areasCount = 64;
+    const int areasPerAxis = 8;
+    TerrainArea areas[64];
 };
 
 

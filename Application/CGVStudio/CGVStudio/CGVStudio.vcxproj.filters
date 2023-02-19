@@ -115,6 +115,9 @@
     <ClCompile Include="Decoration.cpp">
       <Filter>Quelldateien\game</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainArea.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -206,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="Decoration.h">
       <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainArea.h">
+      <Filter>Quelldateien</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
