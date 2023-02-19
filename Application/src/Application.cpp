@@ -503,6 +503,10 @@ void Application::updateObjects(float dtime)
     for each (Wind* wind in Winds)
     {
         wind->update(dtime);
+        PhongShader tmpShader = wind->shader();
+        if (wind->isActiv == false) {
+            tmpShader.lightColor(Color(255, 0, 0));
+        }
     }
 
     for each (WindTurbine* turbine in WindTurbines)

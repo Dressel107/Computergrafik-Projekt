@@ -2,6 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+
 float upWindDuration = 20.0f; //In Sekunden
 
 Wind::Wind(Vector spawnPosition)
@@ -33,6 +34,7 @@ void Wind::update(float dtime)
     if (timer == 0 || glfwGetTime() >= timer + upWindDuration) {
         isActiv = true;
     }
+
 
     currentRotation = currentRotation + (-2 * M_PI / 0.5 * dtime);
 
