@@ -44,7 +44,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 4;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 40;
-Vector playerSpawnPosition(0, 100, -100);
+Vector playerSpawnPosition(0, 80, -40);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -109,12 +109,12 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     //spawnDynamicObjects();
 
     //for Upwind testing
-    //pPhongShader = new PhongShader();
-    //Wind* wind = new Wind(Vector(0,0,0));
-    //wind->shader(pPhongShader, true);
-    //wind->loadModel(ASSET_DIRECTORY "upwind.dae");
-    //Models.push_back(wind);
-    //Winds.push_back(wind);
+    pPhongShader = new PhongShader();
+    Wind* wind = new Wind(Vector(0,0,0));
+    wind->shader(pPhongShader, true);
+    wind->loadModel(ASSET_DIRECTORY "upwind.dae");
+    Models.push_back(wind);
+    Winds.push_back(wind);
 
     //drawText("Geschwindigkeit", 10, 10);
 }

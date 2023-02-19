@@ -129,21 +129,38 @@ float lift = 0.1;
 float drag = 0.01;
 float weight = 0.9;
 
+float x = 0;
+
 //https://www.youtube.com/watch?v=uIgEwJVWVpY&t=368s&ab_channel=ChristopherScottVaughen
 void Glider::calcNextMovment()
 {
 	float distance = 0;
+	float accKoe = 1;
 
 	//Aufstoß im Wind, Stärk abhängig von Abstand zischen Gleiter und Windboden
 	if (this->currentWind != nullptr && this->currentWind->isActiv == false) {
 		 distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
-		 lift = 20000 / (distance * distance);
-		 this->currentWind->trigger();
+		 accKoe = 0.1 * distance;
+		 x = x + 0.1;
+		 lift = (accKoe * (cos(x + M_PI) + accKoe)) / 5;
+
+		 if (lift > -0.01 && lift < 0.01) {
+			 lift = 0;
+			 x = 0;
+			 this->currentWind = nullptr;
+		 }
+
+		 //lift = 20000 / (distance * distance);
+		 //this->currentWind->trigger();
 	}
 	else {
 		lift = 0.1;
 	}
+
 	
+	std::cout << x << "|" << lift << std::endl;
+
+
 	//Winkel zwischen Forward des Gleiters und Z-Achse
 	float phi = atan2f(Transform.forward().normalize().Y, Transform.forward().normalize().Z);
 	//Winkel zwischen Right des Gleiter und X-Achse
@@ -184,7 +201,7 @@ void Glider::calcNextMovment()
 	this->nextRotX = (this->rotUpDown * rotUpDownKoe) + pitch;
 	this->nextRotZ = this->rotLeftRight;// +rotLeftRightKoe;
 
-	std::cout << velocity << "|" << pitch << "|" << phi << "|" << (omega * abs(omega)) << std::endl;
+	//std::cout << velocity << "|" << pitch << "|" << phi << "|" << (omega * abs(omega)) << std::endl;
 }
 
 void Glider::reset() {
