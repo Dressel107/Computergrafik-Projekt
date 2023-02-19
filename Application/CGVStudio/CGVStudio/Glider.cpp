@@ -59,10 +59,16 @@ bool upwinded = false;
 void Glider::upwind(float dtime, Wind* wind)
 {
 	this->currentWind = wind;
+	if (x == 0)
+	{
+		this->x = 1;
+	}
 	if (this->currentWind->isActiv == true) {
 		distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
 		upwinded = true;
 	}
+	//std::cout << distance << std::endl;
+
 
 	wind->trigger();
 }
@@ -140,10 +146,16 @@ void Glider::calcNextMovment()
 		if (lift > -0.01 && lift < 0.01) {
 			upwinded = false;
 			x = 0;
+			this->currentWind = nullptr;
 		}
 	}
-	
-	std::cout << "upwinded:" << upwinded << std::endl;
+	std::cout << upwinded << std::endl;
+
+
+	//if (currentWind != nullptr) {
+	//	std::cout << "x:" << x << "|" << this->currentWind->isActiv << std::endl;
+
+	//}
 
 	//Winkel zwischen Forward des Gleiters und Z-Achse
 	float phi = atan2f(Transform.forward().normalize().Y, Transform.forward().normalize().Z);

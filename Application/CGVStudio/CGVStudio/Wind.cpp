@@ -30,7 +30,6 @@ bool Wind::loadModel(const char* file)
 
 void Wind::update(float dtime)
 {
-    std::cout << isActiv << std::endl;
     if (timer == 0 || glfwGetTime() >= timer + upWindDuration) {
         isActiv = true;
     }
