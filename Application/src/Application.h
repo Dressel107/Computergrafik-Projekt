@@ -58,12 +58,10 @@ protected:
 
     void spawnDynamicObjects();
     void handleObjectCollisions();
-    void handleUpwindsCollisions(float dtime);
     void handleTerrainCollision();
     void updateObjects(float dtime);
-    void gameOver();
     void restartGame();
-    Vector getRandomSpawnPosition();
+    Vector getRandomSpawnPosition(int minY, int maxY);
     Vector getRandomSpawnPositionOnTerrain();
     void drawText(const char* text, float x, float y);
     void lockCamToModel(Camera& cam, BaseModel* model);

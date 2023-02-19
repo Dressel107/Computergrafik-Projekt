@@ -97,9 +97,6 @@
     <ClCompile Include="Capsule.cpp">
       <Filter>Quelldateien\game</Filter>
     </ClCompile>
-    <ClCompile Include="SpeedDisc.cpp">
-      <Filter>Quelldateien\game</Filter>
-    </ClCompile>
     <ClCompile Include="ICollectable.cpp">
       <Filter>Quelldateien\game</Filter>
     </ClCompile>
@@ -190,9 +187,6 @@
       <Filter>Quelldateien\game</Filter>
     </ClInclude>
     <ClInclude Include="Capsule.h">
-      <Filter>Quelldateien\game</Filter>
-    </ClInclude>
-    <ClInclude Include="SpeedDisc.h">
       <Filter>Quelldateien\game</Filter>
     </ClInclude>
     <ClInclude Include="ICollectable.h">

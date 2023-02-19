@@ -34,22 +34,24 @@
 #define ASSET_DIRECTORY "../assets/"
 #endif
 
-double oldMousePosX = 0;
-double oldMousePosY = 0;
-const int SPHERES_COUNT = 60;
-const int CAPSULES_COUNT = 30;
-const int UPWINDS_COUNT = 10;
-const int WIND_TURBINES_COUNT = 40;
-const int BUSHES_COUNT = 60;
-const int WOODS_COUNT = 100;
-const int MAX_SPAWN_Y = 12;
+const int SPHERES_COUNT = 50;
+const int CAPSULES_COUNT = 25;
+const int UPWINDS_COUNT = 12;
+const int WIND_TURBINES_COUNT = 25;
+const int BUSHES_COUNT = 30;
+const int WOODS_COUNT = 30;
+
+const int MIN_UPWIND_SPAWN_Y = 0;
+const int MAX_UPWIND_SPAWN_Y = 15;
+const int MIN_COLLECTABLE_SPAWN_Y = 2;
+const int MAX_COLLECTABLE_SPAWN_Y = 50;
 const int TERRAIN_SCALING = 40;
-Vector playerSpawnPosition(2, 100, -120);
+
+Vector playerSpawnPosition(0, 100, -120);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
 Vector cameraTargetRelativToModel(0, 0, 5);
-
 
 int points = 0;
 int height = 0;
@@ -63,7 +65,6 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     BaseModel* pModel;
     PhongShader* pPhongShader;
    
-
     // Skybox laden    
     pPhongShader = new PhongShader();
     pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
@@ -110,35 +111,24 @@ void Application::start()
 
 void Application::update(float dtime)
 {
-
-    // Wenn GameOver ist, warten bis der Benutzer die Leertaste drückt
-    if (isGameOver)
+    // Gleiter starten
+    if (glfwGetKey(pWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
-        // TODO: Text anzeigen
+        this->glider->startGlider();
+    }
 
-        if (glfwGetKey(pWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
-        {
-            restartGame();            
-        }
+    // Spiel restarten
+    if (glfwGetKey(pWindow, GLFW_KEY_R) == GLFW_PRESS)
+    {
+        this->restartGame();
     }
 
     // Tastaturdaten zur Navigation des Gleiters einlesen
-    float forwardBackward = 0.0f;
     float upDown = 0.0f;
     float leftRight = 0.0f;
-
-    // Nach vorne/hinten bewegen
-    if (glfwGetKey(pWindow, GLFW_KEY_V) == GLFW_PRESS)
-    {
-        forwardBackward = 1.0f;
-    }
-    if (glfwGetKey(pWindow, GLFW_KEY_B) == GLFW_PRESS)
-    {
-        forwardBackward = -1.0f;
-    }
     
     // Nach oben/unten fliegen
-    if (glfwGetKey(pWindow, GLFW_KEY_UP) == GLFW_PRESS) 
+    if (glfwGetKey(pWindow, GLFW_KEY_UP) == GLFW_PRESS)
     {
         upDown = -1.0f;
     }
@@ -157,19 +147,7 @@ void Application::update(float dtime)
         leftRight = 1.0f;
     }
 
-    //Gleiterstarten
-    if (glfwGetKey(pWindow, GLFW_KEY_S) == GLFW_PRESS)
-    {
-        this->glider->startGlider();
-    }
-
-    //Spiel restarten
-    if (glfwGetKey(pWindow, GLFW_KEY_R) == GLFW_PRESS)
-    {
-        this->restartGame();
-    }
     //Sicht ändern
-    
     if (glfwGetKey(pWindow, GLFW_KEY_1) == GLFW_PRESS)//normale Sicht
     {
         this->camTM.translation(cameraPositionRelativToModel);
@@ -193,13 +171,10 @@ void Application::update(float dtime)
 
     // Objekte aktualisieren
     lockCamToModel(Cam, glider);
-
     updateObjects(dtime);
-
 
     // Kollisionen prüfen
     handleObjectCollisions();
-    handleUpwindsCollisions(dtime);
     handleTerrainCollision();
     
     Cam.update();
@@ -248,7 +223,7 @@ void Application::spawnDynamicObjects()
 
     for (int i = 0; i < UPWINDS_COUNT; i++)
     {
-        Vector spawnPosition = getRandomSpawnPosition();
+        Vector spawnPosition = getRandomSpawnPosition(MIN_UPWIND_SPAWN_Y, MAX_UPWIND_SPAWN_Y);
 
         pPhongShader = new PhongShader();
         Wind* wind = new Wind(spawnPosition);
@@ -260,7 +235,7 @@ void Application::spawnDynamicObjects()
 
     for (int i = 0; i < SPHERES_COUNT; i++)
     {
-        Vector spawnPosition = getRandomSpawnPosition();
+        Vector spawnPosition = getRandomSpawnPosition(MIN_COLLECTABLE_SPAWN_Y, MAX_COLLECTABLE_SPAWN_Y);
 
         pPhongShader = new PhongShader();
         Sphere* sphere = new Sphere(spawnPosition);
@@ -272,7 +247,7 @@ void Application::spawnDynamicObjects()
 
     for (int i = 0; i < CAPSULES_COUNT; i++)
     {
-        Vector spawnPosition = getRandomSpawnPosition();
+        Vector spawnPosition = getRandomSpawnPosition(MIN_COLLECTABLE_SPAWN_Y, MAX_COLLECTABLE_SPAWN_Y);
 
         pPhongShader = new PhongShader();
         Capsule* capsule = new Capsule(spawnPosition);
@@ -303,13 +278,7 @@ void Application::handleObjectCollisions()
 {
     AABB bb = this->glider->boundingBox();
 
-
-
-    //for (int i = 0; i < Capsules.size(); i++)
-    //{
-    //    Capsule* capsule = Capsules.[i];
-    //}
-
+    // Prüfen, ob der Spieler eine Kapsel einsammelt
     for each (Capsule* capsule in Capsules)
     {
         AABB capsuleBB = capsule->boundingBox();
@@ -317,21 +286,21 @@ void Application::handleObjectCollisions()
         if (bb.intersectWith(capsule->boundingBox()))
         {
             points += capsule->collect();
-            //Capsules.remove(capsule);
             Models.remove(capsule);
         }
     }
 
+    // Prüfen, ob der Spieler eine Kugel einsammelt
     for each (Sphere* sphere in Spheres)
     {
         if (bb.intersectWith(sphere->boundingBox()))
         {
             points += sphere->collect();
-            //Spheres.remove(sphere);
             Models.remove(sphere);
         }
     }
 
+    // Prüfen, ob der Spieler gegen ein Windrad fliegt
     for each (WindTurbine* windTurbine in WindTurbines)
     {
         if (bb.intersectWith(windTurbine->boundingBoxPole()) || bb.intersectWith(windTurbine->boundingBoxWheel()))
@@ -340,31 +309,12 @@ void Application::handleObjectCollisions()
         }
     }
 
-    for each (Wind* wind in Winds)
-    {
-        AABB aaaaaa = wind->boundingBox();
-
-        if (bb.intersectWith(wind->boundingBox()))
-        {
-            //this->glider->upwind(dtime);
-        }
-    }
-
-
-}
-
-/// <summary>
-///     Prüft, ob sich der Spieler in einem Aufwind befindet.
-/// </summary>
-void Application::handleUpwindsCollisions(float dtime)
-{
-    AABB bb = this->glider->boundingBox();
-
+    // Prüfen, ob sich der Spieler in einem Aufwind befindet
     for each (Wind* wind in Winds)
     {
         if (bb.intersectWith(wind->boundingBox()))
         {
-            this->glider->upwind( dtime, wind);
+            this->glider->upwind(wind);
         }
     }
 }
@@ -392,7 +342,6 @@ void Application::updateObjects(float dtime)
         capsule->update(dtime);
     }
 
-
     for each (Wind* wind in Winds)
     {
         wind->update(dtime);
@@ -409,33 +358,24 @@ void Application::updateObjects(float dtime)
     }
 }
 
-void Application::gameOver()
-{
-
-    isGameOver = true;
-    points = 0;
-}
-
 void Application::restartGame()
 {
     this->glider->reset();
     for each (Wind * wind in Winds)
     {
         wind->reset();
-    }
-    
-    isGameOver = false;
+    }   
 }
 
 /// <summary>
 ///     Gibt eine zuällige Position über dem Terrain für ein Objekt zurück.
 /// </summary>
-Vector Application::getRandomSpawnPosition()
+Vector Application::getRandomSpawnPosition(int minY, int maxY)
 {
     int indexX = rand() % pTerrain->imgWidth;
     int indexZ = rand() % pTerrain->imgHeight;
     Vector vertex = pTerrain->tmpVertices[(indexZ)*pTerrain->imgWidth + (indexX)];
-    float y = (vertex.Y * TERRAIN_SCALING) + (rand() % MAX_SPAWN_Y);
+    float y = (vertex.Y * TERRAIN_SCALING) + (rand() % maxY) + minY;
 
     return Vector(vertex.X * TERRAIN_SCALING, y, vertex.Z * TERRAIN_SCALING);
 }

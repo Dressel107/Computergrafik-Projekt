@@ -20,12 +20,6 @@ bool Wind::loadModel(const char* file)
     this->wind = new Model(file, false);
     this->wind->shader(shader());
 
-    // BoundingBox künstlich erhöhen
-    //this->wind->BoundingBox.Max.Y = this->wind->BoundingBox.Max.Y + 100;
-
-    // BoundingBox aktualisieren
-    this->wind->BoundingBox.translate(spawnPosition);
-
     return true;
 }
 
@@ -36,22 +30,22 @@ void Wind::update(float dtime)
     }
 
 
-    currentRotation = currentRotation + (-2 * M_PI / 0.5 * dtime);
+    this->currentRotation = this->currentRotation + (-2 * M_PI / 0.75 * dtime);
 
     Matrix TM;
     TM.translation(this->spawnPosition);
 
     Matrix RM;
     RM.rotationY(currentRotation);
-    wind->transform(TM * RM);
+    this->wind->transform(TM * RM);
 
     //BoundingBox aktualisieren
-    wind->BoundingBox.transform(wind->transform());
+    this->wind->BoundingBox.transform(this->wind->transform());
 }
 
 void Wind::draw(const BaseCamera& Cam)
 {
-    wind->draw(Cam);
+    this->wind->draw(Cam);
 }
 
 void Wind::trigger()

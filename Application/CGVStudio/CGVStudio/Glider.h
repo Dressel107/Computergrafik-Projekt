@@ -13,7 +13,7 @@ public:
 
     virtual void draw(const BaseCamera& Cam);
     const AABB& boundingBox() const { return glider->boundingBox(); }
-    void upwind(float dtime, Wind* wind);
+    void upwind(Wind* wind);
     void crash();
     void navigate(float UpDown, float LeftRight);
     void navigateForTesting(float forwardBackward, float UpDown, float LeftRight);

@@ -37,7 +37,7 @@ bool Glider::loadModel(const char* gliderFile)
 	Matrix TM;
 	this->Transform = TM.translation(this->spawnPosition);
 	glider->transform(this->Transform);
-	this->glider->BoundingBox.translate(spawnPosition);
+	this->glider->BoundingBox.transform(this->Transform);
 	return true;
 }
 
@@ -56,7 +56,7 @@ void Glider::crash()
 float distance = 0;
 bool upwinded = false;
 
-void Glider::upwind(float dtime, Wind* wind)
+void Glider::upwind(Wind* wind)
 {
 	this->currentWind = wind;
 	if (x == 0)
@@ -149,7 +149,7 @@ void Glider::calcNextMovment()
 			this->currentWind = nullptr;
 		}
 	}
-	std::cout << upwinded << std::endl;
+	//std::cout << upwinded << std::endl;
 
 
 	//if (currentWind != nullptr) {
@@ -202,7 +202,7 @@ void Glider::reset() {
 	Matrix TM;
 	this->Transform = TM.translation(this->spawnPosition);
 	glider->transform(TM.translation(this->spawnPosition));
-	this->glider->BoundingBox.translate(spawnPosition);
+	this->glider->BoundingBox.transform(this->Transform);
 
 	velocity = 8;
 	pitch = 0;

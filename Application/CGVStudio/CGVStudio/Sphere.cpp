@@ -17,12 +17,6 @@ bool Sphere::loadModel(const char* file)
 
     sphere = new Model(file, false);
     sphere->shader(shader());
-    Matrix Scale;
-    Scale.scale(6);
-    sphere->transform(Scale);
-    // BoundingBox aktualisieren
-
-    this->sphere->BoundingBox.translate(spawnPosition);
 
     return true;
 }
@@ -34,11 +28,16 @@ int Sphere::collect()
 
 void Sphere::update(float dtime)
 {
+    Matrix Scale;
+    Scale.scale(3);
+
     Matrix TM;
     TM.translation(this->spawnPosition);
 
-    this->sphere->transform(TM);
+    this->sphere->transform(TM * Scale);
 
+    // BoundingBox aktualisieren
+    this->sphere->BoundingBox.transform(this->sphere->transform());
 }
 
 void Sphere::draw(const BaseCamera& Cam)

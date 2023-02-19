@@ -12,11 +12,8 @@ public:
     void update(float dtime);
     virtual void draw(const BaseCamera& Cam);
     const AABB& boundingBox() const { return model->boundingBox(); }
-    void setPos(Vector pos);
 protected:
     Model* model;
     Vector spawnPosition;
-    float currentRotation = 0;
-    
-    Vector pos;
+    float currentRotation = 0;   
 };

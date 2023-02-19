@@ -22,21 +22,19 @@ bool Decoration::loadModel(const char* file)
 
 void Decoration::update(float dtime)
 {
-    Matrix TM;
-    TM.translation(this->pos);
+    Matrix Scale;
+    Scale.scale(4);
 
-    this->model->transform(TM);
+    Matrix TM;
+    TM.translation(this->spawnPosition);
+
+    this->model->transform(TM * Scale);
 
     // BoundingBox aktualisieren
-    this->model->BoundingBox.translate(spawnPosition);
+    this->model->BoundingBox.transform(this->model->transform());
 }
 
 void Decoration::draw(const BaseCamera& Cam)
 {
     model->draw(Cam);
-}
-
-void Decoration::setPos(Vector pos)
-{
-    this->pos = pos;
 }

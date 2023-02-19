@@ -26,7 +26,6 @@ public:
     Vector size() const;
     bool intersectWith(Vector v);
     bool intersectWith(AABB aabb);
-    void translate(Vector position);
     void transform(Matrix matrix);
 };
 

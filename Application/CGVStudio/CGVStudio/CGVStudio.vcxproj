@@ -112,7 +112,6 @@
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="Glider.cpp" />
     <ClCompile Include="ICollectable.cpp" />
-    <ClCompile Include="SpeedDisc.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="TerrainArea.cpp" />
     <ClCompile Include="Wind.cpp" />
@@ -145,7 +144,6 @@
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="Glider.h" />
     <ClInclude Include="ICollectable.h" />
-    <ClInclude Include="SpeedDisc.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="TerrainArea.h" />
     <ClInclude Include="Wind.h" />

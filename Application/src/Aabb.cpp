@@ -55,15 +55,6 @@ bool AABB::intersectWith(AABB aabb)
     return false;
 }
 
-/// <summary>
-///     Bewegt die BoundingBox zu einer bestimmten Position
-/// </summary>
-void AABB::translate(Vector position)
-{
-    Min = SpawnMin + position;
-    Max = SpawnMax + position;
-}
-
 void AABB::transform(Matrix matrix)
 {
     Min = matrix * SpawnMin;
