@@ -28,9 +28,9 @@ bool Wind::loadModel(const char* file)
     return true;
 }
 
-float timer = 0;
 void Wind::update(float dtime)
 {
+    std::cout << isActiv << std::endl;
     if (timer == 0 || glfwGetTime() >= timer + upWindDuration) {
         isActiv = true;
     }
@@ -60,4 +60,9 @@ void Wind::trigger()
         timer = glfwGetTime();
         isActiv = false;
     }
+}
+
+void Wind::reset() {
+    this->timer = 0;
+    this->isActiv = true;
 }

@@ -41,6 +41,13 @@ protected:
     bool isInWind = false;
     Wind* currentWind;
 
+    float velocity = 8;
+    float pitch = 0;
+    float lift = 0.1;
+    float drag = 0.01;
+    float weight = 0.9;
+    float x = 1;
+
     //void rek(float x, float distance);
 
 };

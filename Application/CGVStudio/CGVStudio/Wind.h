@@ -14,11 +14,14 @@ public:
     const AABB& boundingBox() const { return wind->BoundingBox; }
     void trigger();
     bool isActiv = true;
+    void reset();
 
 
 protected:
     Model* wind;
     Vector spawnPosition;
     float currentRotation = 0;
+    float timer = 0;
+
 
 };

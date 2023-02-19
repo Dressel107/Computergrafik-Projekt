@@ -44,7 +44,7 @@ const int BUSHES_COUNT = 60;
 const int WOODS_COUNT = 4;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALE = 40;
-Vector playerSpawnPosition(0, 40, -40);
+Vector playerSpawnPosition(0, 40, -80);
 
 //Normale sicht
 Vector cameraPositionRelativToModel(0, 10, -10);
@@ -544,6 +544,7 @@ void Application::updateUITexts()
 
 void Application::gameOver()
 {
+
     isGameOver = true;
     points = 0;
 }
@@ -551,6 +552,11 @@ void Application::gameOver()
 void Application::restartGame()
 {
     this->glider->reset();
+    for each (Wind * wind in Winds)
+    {
+        wind->reset();
+    }
+    
     isGameOver = false;
 }
 
@@ -639,3 +645,4 @@ void Application::lockCamToModel(Camera& cam, BaseModel* model)
     //target
     cam.setTarget((model->transform() * this->targetTM).translation());
 }
+
