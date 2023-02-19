@@ -41,7 +41,7 @@ const int CAPSULES_COUNT = 30;
 const int UPWINDS_COUNT = 10;
 const int WIND_TURBINES_COUNT = 40;
 const int BUSHES_COUNT = 60;
-const int WOODS_COUNT = 4;
+const int WOODS_COUNT = 100;
 const int MAX_SPAWN_Y = 12;
 const int TERRAIN_SCALING = 40;
 Vector playerSpawnPosition(2, 100, -120);
@@ -56,37 +56,27 @@ int height = 0;
 bool isGameOver = false;
 int startTime = 0;
 
+BaseModel* pSkybox;
+
 Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
 {
     BaseModel* pModel;
     PhongShader* pPhongShader;
-    
-    // create LineGrid model with constant color shader
- //   pModel = new LinePlaneModel(10, 10, 10, 10);
- //   ConstantShader* pConstShader = new ConstantShader();
-	//pConstShader->color( Color(1,0,0));
- //   pModel->shader(pConstShader, true);
- //   // add to render list
- //   Models.push_back( pModel );
-    
-    // Skybox laden    
-    pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
-    pModel->shader(new PhongShader(), true);
-    Models.push_back(pModel);
-    Matrix MT;
-    MT.scale(2);
-    pModel->transform(MT);
+   
 
-    Matrix MS;
-    MS.scale(5);
-    pModel->transform(MS);
+    // Skybox laden    
+    pPhongShader = new PhongShader();
+    pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
+    pModel->shader(pPhongShader, true);
+    Models.push_back(pModel);
+    pSkybox = pModel;
 
     // Terrain laden
     pTerrain = new Terrain();
     TerrainShader* pTerrainShader = new TerrainShader(ASSET_DIRECTORY);
     pTerrainShader->diffuseTexture(Texture::LoadShared(ASSET_DIRECTORY "grass.bmp"));
     pTerrain->shader(pTerrainShader, true);
-    pTerrain->load(ASSET_DIRECTORY "heightmap2.png", ASSET_DIRECTORY"grass.bmp", ASSET_DIRECTORY"rock.bmp", TERRAIN_SCALING);
+    pTerrain->load(ASSET_DIRECTORY "h.png", ASSET_DIRECTORY"grass.bmp", ASSET_DIRECTORY"rock.bmp", TERRAIN_SCALING);
     pTerrain->width(TERRAIN_SCALING);
     pTerrain->depth(TERRAIN_SCALING);
     pTerrain->height(TERRAIN_SCALING);
@@ -103,20 +93,10 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
     //Kameraeinstellungen
     this->camTM.translation(cameraPositionRelativToModel);
     this->targetTM.translation(cameraTargetRelativToModel);
-    
 
     //Dynamische Objekte spawnen
     spawnDynamicObjects();
 
-    //for Upwind testing
-    //pPhongShader = new PhongShader();
-    //Wind* wind = new Wind(Vector(0,0,0));
-    //wind->shader(pPhongShader, true);
-    //wind->loadModel(ASSET_DIRECTORY "upwind.dae");
-    //Models.push_back(wind);
-    //Winds.push_back(wind);
-
-    //drawText("Geschwindigkeit", 10, 10);
 }
 void Application::start()
 {
@@ -130,10 +110,6 @@ void Application::start()
 
 void Application::update(float dtime)
 {
-
-    //ImGui::Begin("My Window");
-    //ImGui::Text("This is some text");
-    //ImGui::End();
 
     // Wenn GameOver ist, warten bis der Benutzer die Leertaste drückt
     if (isGameOver)
@@ -206,11 +182,10 @@ void Application::update(float dtime)
         this->targetTM.translation(Vector(0,0,-5));
     }
 
-    // Todo: anpassen
     if (glfwGetKey(pWindow, GLFW_KEY_3) == GLFW_PRESS)// Cockpitsicht
     {
-        this->camTM.translation(Vector(0, 0.7, 1.5)); 
-        this->targetTM.translation(Vector(0, 0.7, 1.6));
+        this->camTM.translation(Vector(0, 1.4, 3)); 
+        this->targetTM.translation(Vector(0, 1.4, 3.1));
     }
 
     // Gleiter navigieren
@@ -223,13 +198,11 @@ void Application::update(float dtime)
 
 
     // Kollisionen prüfen
-    //handleObjectCollisions();
+    handleObjectCollisions();
     handleUpwindsCollisions(dtime);
     handleTerrainCollision();
     
     Cam.update();
-
-    // Prüfen, ob Zeit abgelaufen ist
 }
 
 void Application::spawnDynamicObjects()
@@ -376,6 +349,8 @@ void Application::handleObjectCollisions()
             //this->glider->upwind(dtime);
         }
     }
+
+
 }
 
 /// <summary>
@@ -389,8 +364,7 @@ void Application::handleUpwindsCollisions(float dtime)
     {
         if (bb.intersectWith(wind->boundingBox()))
         {
-            Vector windPos = wind->transform().translation();
-            this->glider->upwind( dtime, windPos);
+            this->glider->upwind( dtime, wind);
         }
     }
 }
@@ -398,8 +372,14 @@ void Application::handleUpwindsCollisions(float dtime)
 /// <summary>
 ///     Aktualisiert die Positionen aller Objekte in der Szene.
 /// </summary>
+float currentRotation = 0;
 void Application::updateObjects(float dtime)
 {
+    currentRotation = currentRotation + (-2 * M_PI / 200 * dtime);
+    Matrix RM, SM;
+    RM.rotationY(currentRotation);
+    SM.scale(5);
+    pSkybox->transform(RM * SM);
     glider->update(dtime);
 
     for each (Sphere* sphere in Spheres)
@@ -412,10 +392,6 @@ void Application::updateObjects(float dtime)
         capsule->update(dtime);
     }
 
-    for each (SpeedDisc* disc in SpeedDiscs)
-    {
-        disc->update(dtime);
-    }
 
     for each (Wind* wind in Winds)
     {
@@ -433,16 +409,9 @@ void Application::updateObjects(float dtime)
     }
 }
 
-/// <summary>
-///     Aktualisiert alle Texte auf der UI.
-/// </summary>
-void Application::updateUITexts()
-{
-
-}
-
 void Application::gameOver()
 {
+
     isGameOver = true;
     points = 0;
 }
@@ -450,6 +419,11 @@ void Application::gameOver()
 void Application::restartGame()
 {
     this->glider->reset();
+    for each (Wind * wind in Winds)
+    {
+        wind->reset();
+    }
+    
     isGameOver = false;
 }
 
@@ -530,3 +504,4 @@ void Application::lockCamToModel(Camera& cam, BaseModel* model)
     //target
     cam.setTarget((model->transform() * this->targetTM).translation());
 }
+

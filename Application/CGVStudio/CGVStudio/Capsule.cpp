@@ -16,6 +16,9 @@ bool Capsule::loadModel(const char* file)
 {
     capsule = new Model(file, false);
     capsule->shader(shader());
+    Matrix Scale;
+    Scale.scale(20);
+    //capsule->transform( Scale);
 
     return true;
 }
@@ -29,15 +32,14 @@ void Capsule::update(float dtime)
 {
     currentRotation = currentRotation + (-2 * M_PI / 3 * dtime);
 
-    Matrix Scale;
-    Scale.scale(4);
+
 
     Matrix TM;
     TM.translation(this->spawnPosition);
 
     Matrix RM;
     RM.rotationY(currentRotation);
-    capsule->transform(TM * RM * Scale);
+    capsule->transform(TM * RM);
 
     // BoundingBox aktualisieren
     this->capsule->BoundingBox.transform(this->capsule->transform());

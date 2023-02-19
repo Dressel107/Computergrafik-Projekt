@@ -21,7 +21,6 @@
 #include "../CGVStudio/CGVStudio/Glider.h"
 #include "../CGVStudio/CGVStudio/Capsule.h"
 #include "../CGVStudio/CGVStudio/IAnimatable.h"
-#include "../CGVStudio/CGVStudio/SpeedDisc.h"
 #include "../CGVStudio/CGVStudio/Sphere.h"
 #include "../CGVStudio/CGVStudio/Wind.h"
 #include "../CGVStudio/CGVStudio/WindTurbine.h"
@@ -33,7 +32,6 @@ public:
     typedef std::list<BaseModel*> ModelList;
     typedef std::list<Sphere*> SphereList;
     typedef std::list<Capsule*> CapsuleList;
-    typedef std::list<SpeedDisc*> SpeedDiscList;
     typedef std::list<Wind*> WindList;
     typedef std::list<WindTurbine*> WindTurbineList;
     typedef std::list<Decoration*> DecorationList;
@@ -52,7 +50,6 @@ protected:
     
     SphereList Spheres;
     CapsuleList Capsules;
-    SpeedDiscList SpeedDiscs;
     WindList Winds;
     WindTurbineList WindTurbines;
     DecorationList Decorations;
@@ -64,7 +61,6 @@ protected:
     void handleUpwindsCollisions(float dtime);
     void handleTerrainCollision();
     void updateObjects(float dtime);
-    void updateUITexts();
     void gameOver();
     void restartGame();
     Vector getRandomSpawnPosition();
