@@ -8,6 +8,7 @@ float upWindDuration = 20.0f; //In Sekunden
 Wind::Wind(Vector spawnPosition)
 {
     this->spawnPosition = spawnPosition;
+
 }
 
 Wind::~Wind()
@@ -27,6 +28,9 @@ void Wind::update(float dtime)
 {
     if (timer == 0 || glfwGetTime() >= timer + upWindDuration) {
         isActiv = true;
+        //std::cout << this->pShader->lightColor().R << "|" << this->pShader->lightColor().G <<"|" << this->pShader->lightColor().B << std::endl;
+        this->pShader->lightColor(Color(1, 1, 1));
+
     }
 
 
@@ -54,10 +58,13 @@ void Wind::trigger()
     {
         timer = glfwGetTime();
         isActiv = false;
+        this->pShader->lightColor(Color(255, 0, 0));
     }
 }
 
 void Wind::reset() {
     this->timer = 0;
     this->isActiv = true;
+
 }
+

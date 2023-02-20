@@ -2,6 +2,7 @@
 #include "../../src/Camera.h"
 #include "../../src/Model.h"
 
+
 class WindTurbine : public BaseModel
 {
 public:

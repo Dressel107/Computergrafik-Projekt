@@ -137,6 +137,7 @@ void Glider::calcNextMovment()
 	float accKoe = 1;
 	pitch = 0;
 
+
 	//Aufsto� im Wind, St�rk abh�ngig von Abstand zischen Gleiter und Windboden
 	if (upwinded == true) {
 		accKoe =   (150/ distance);

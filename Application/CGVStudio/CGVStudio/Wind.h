@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../../src/Camera.h"
 #include "../../src/Model.h"
+#include "../../src/PhongShader.h"
 
 #pragma once
 class Wind : public BaseModel
@@ -15,6 +16,7 @@ public:
     void trigger();
     bool isActiv = true;
     void reset();
+    PhongShader* pShader;
 
 
 protected:
