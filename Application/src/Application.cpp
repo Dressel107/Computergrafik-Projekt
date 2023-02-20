@@ -25,7 +25,6 @@
 #include "model.h"
 #include "terrainshader.h"
 #include "../CGVStudio/CGVStudio/Upwind.h"
-#include <GL/freeglut.h>
 #include <imgui.h>
 
 #ifdef WIN32
@@ -394,22 +393,7 @@ Vector Application::getRandomSpawnPositionOnTerrain()
     return Vector(vertex.X * TERRAIN_SCALING, (vertex.Y * TERRAIN_SCALING) - 0.1, vertex.Z * TERRAIN_SCALING);
 }
 
-void Application::drawText(const char* text, float x, float y) 
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(255.0, 0.0, 0.0);
-    glRasterPos2i(x, y);
-    glutBitmapString(GLUT_BITMAP_9_BY_15, (const unsigned char*)text);
-    //glFlush();
-    glutSwapBuffers();
 
-    //glRasterPos2f(x, y);
-
-    //for (int i = 0; text[i] != '\0'; i++) 
-    //{
-    //    glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
-    //}
-}
 
 void Application::draw()
 {

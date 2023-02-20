@@ -1,48 +1,42 @@
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vc143.pdb
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vc143.idb
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\triangleplanemodel.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\triangleboxmodel.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\texture.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\terrainshader.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\terrain.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\rgbimage.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\phongshader.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\model.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\matrix.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\main.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\lineplanemodel.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\lineboxmodel.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\indexbuffer.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\constantshader.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\color.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\camera.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\baseshader.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\basemodel.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\application.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\aabb.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\windturbine.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\wind.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\sphere.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\speeddisc.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\icollectable.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\glider.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\decoration.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\capsule.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vertexbuffer.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vector.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\trianglespheremodel.obj
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\terrainarea.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vc143.pdb
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vc143.idb
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\triangleplanemodel.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\triangleboxmodel.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\texture.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\terrainshader.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\terrain.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\rgbimage.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\phongshader.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\model.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\matrix.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\main.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\lineplanemodel.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\lineboxmodel.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\indexbuffer.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\constantshader.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\color.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\camera.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\baseshader.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\basemodel.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\application.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\aabb.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\windturbine.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\wind.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\terrainarea.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\sphere.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\icollectable.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\glider.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\decoration.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\capsule.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vertexbuffer.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\vector.obj
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\trianglespheremodel.obj
 c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\debug\cgvstudio.exe
 c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.ilk
 c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\debug\cgvstudio.pdb
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\debug\cgvstudio.exe
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.ilk
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\debug\cgvstudio.pdb
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\glider.obj.enc
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\terrain.obj.enc
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\cl.command.1.tlog
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\cl.read.1.tlog
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\cl.write.1.tlog
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\link.command.1.tlog
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\link.read.1.tlog
-c:\users\simon\documents\visual studio 2022\projects\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\link.write.1.tlog
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\cl.command.1.tlog
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\cl.read.1.tlog
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\cl.write.1.tlog
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\link.command.1.tlog
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\link.read.1.tlog
+c:\users\dresselhaus\documents\github\computergrafik-projekt\application\cgvstudio\cgvstudio\debug\cgvstudio.tlog\link.write.1.tlog
