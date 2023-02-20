@@ -67,8 +67,6 @@ void Glider::upwind(Wind* wind)
 		distance = (this->transform().translation().Y - this->currentWind->transform().translation().Y);
 		upwinded = true;
 	}
-	//std::cout << distance << std::endl;
-
 
 	wind->trigger();
 }
@@ -150,13 +148,6 @@ void Glider::calcNextMovment()
 			this->currentWind = nullptr;
 		}
 	}
-	//std::cout << upwinded << std::endl;
-
-
-	//if (currentWind != nullptr) {
-	//	std::cout << "x:" << x << "|" << this->currentWind->isActiv << std::endl;
-
-	//}
 
 	//Winkel zwischen Forward des Gleiters und Z-Achse
 	float phi = atan2f(Transform.forward().normalize().Y, Transform.forward().normalize().Z);
@@ -178,7 +169,6 @@ void Glider::calcNextMovment()
 		pitch = 0;
 	}
 	else {
-		//pitch = 1 / ((abs(velocity) + 1) * 5);
 		pitch += 0.03*(15 - velocity);
 	}
 
@@ -187,14 +177,17 @@ void Glider::calcNextMovment()
 	velocity = std::min(maxVelocity, velocity);
 
 	//Abh�nigkeit von RotUp-Rotations-St�rke und Omega -> Nach oben Neigen schwer, nachen unten Neigen leicht
-	float rotUpDownKoe = (2 + (abs(omega))) /4;
+	float rotUpDownKoe = (2 + (abs(omega))) /6;
 
-	//Abh�nigkeit von LeftRight Rotation und Oegma -> Gleiter wird immer wieder waagerecht
-	//float rotLeftRightKoe = -(omega * abs(omega) / 4);
+
+
+
+
+
 
 	this->nextPos = Transform.forward() * velocity + Transform.backward() * drag + unitVecPosY * lift + unitVecNegY * weight;
 	this->nextRotX = (this->rotUpDown * rotUpDownKoe) + pitch;
-	this->nextRotZ = this->rotLeftRight;// +rotLeftRightKoe;
+	this->nextRotZ = this->rotLeftRight * 0.5;
 
 }
 

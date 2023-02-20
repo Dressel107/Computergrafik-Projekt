@@ -28,9 +28,7 @@ void Wind::update(float dtime)
 {
     if (timer == 0 || glfwGetTime() >= timer + upWindDuration) {
         isActiv = true;
-        //std::cout << this->pShader->lightColor().R << "|" << this->pShader->lightColor().G <<"|" << this->pShader->lightColor().B << std::endl;
         this->pShader->lightColor(Color(1, 1, 1));
-
     }
 
 

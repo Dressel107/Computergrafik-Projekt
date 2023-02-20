@@ -162,8 +162,8 @@ void Application::update(float dtime)
 
     if (glfwGetKey(pWindow, GLFW_KEY_3) == GLFW_PRESS)// Cockpitsicht
     {
-        this->camTM.translation(Vector(0, 1.4, 3)); 
-        this->targetTM.translation(Vector(0, 1.4, 3.1));
+        this->camTM.translation(Vector(0, 1.4, 3.2)); 
+        this->targetTM.translation(Vector(0, 1.4, 4.3));
     }
 
     // Gleiter navigieren
@@ -231,6 +231,7 @@ void Application::spawnDynamicObjects()
         wind->loadModel(ASSET_DIRECTORY "upwind.dae");
         Models.push_back(wind);
         Winds.push_back(wind);
+        wind->pShader = pPhongShader;
     }
 
     for (int i = 0; i < SPHERES_COUNT; i++)
@@ -330,7 +331,6 @@ void Application::updateObjects(float dtime)
     RM.rotationY(currentRotation);
     SM.scale(5);
     pSkybox->transform(RM * SM);
-    glider->update(dtime);
 
     for each (Sphere* sphere in Spheres)
     {
@@ -356,6 +356,8 @@ void Application::updateObjects(float dtime)
     {
         decoration->update(dtime);
     }
+    glider->update(dtime);
+
 }
 
 void Application::restartGame()
