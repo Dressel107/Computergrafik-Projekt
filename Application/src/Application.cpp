@@ -50,7 +50,7 @@ const int TERRAIN_SCALING = 40;
 Vector playerSpawnPosition(0, 100, -120);
 
 //Normale sicht
-Vector cameraPositionRelativToModel(0, 10, -10);
+Vector cameraPositionRelativToModel(0, 7, -10);
 Vector cameraTargetRelativToModel(0, 0, 5);
 
 int points = 0;
